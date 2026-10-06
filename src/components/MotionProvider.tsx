@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { MotionConfig } from 'framer-motion';
+import { MotionConfig } from 'motion/react';
 import Lenis from 'lenis';
 
 export default function MotionProvider({ children }: { children: React.ReactNode }) {
