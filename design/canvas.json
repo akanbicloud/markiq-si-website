@@ -1,0 +1,196 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Academy.dc.html": {
+      "expand": "fill",
+      "h": 4400,
+      "is_interactive": true,
+      "title": "Academy",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Alerts.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "title": "Alert settings",
+      "w": 1440,
+      "x": 7600,
+      "y": 6400
+    },
+    "ChartLab.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "title": "Chart Lab (replay and backtest)",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "Community.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "title": "Community",
+      "w": 1440,
+      "x": 10640,
+      "y": 6400
+    },
+    "Dashboard.dc.html": {
+      "expand": "fill",
+      "h": 1600,
+      "is_interactive": true,
+      "title": "Personal dashboard",
+      "w": 1440,
+      "x": 1520,
+      "y": 6400
+    },
+    "Explorer.dc.html": {
+      "expand": "fill",
+      "h": 1400,
+      "is_interactive": true,
+      "title": "Historical Reaction Explorer",
+      "w": 1440,
+      "x": 4560,
+      "y": 6400
+    },
+    "Journal.dc.html": {
+      "expand": "fill",
+      "h": 2900,
+      "is_interactive": true,
+      "title": "Trading Journal",
+      "w": 1440,
+      "x": 9120,
+      "y": 0
+    },
+    "Lesson.dc.html": {
+      "expand": "fill",
+      "h": 2900,
+      "is_interactive": true,
+      "title": "Lesson, quiz and AI Tutor",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "LiveDesk.dc.html": {
+      "expand": "fill",
+      "h": 1900,
+      "is_interactive": true,
+      "title": "Live Desk (broadcasts and live feed)",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 5900,
+      "is_interactive": true,
+      "title": "Home",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Markets.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "title": "Market dashboard",
+      "w": 1440,
+      "x": 3040,
+      "y": 6400
+    },
+    "News.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "title": "News feed (summarized stories)",
+      "w": 1440,
+      "x": 12160,
+      "y": 6400
+    },
+    "Onboarding.dc.html": {
+      "expand": "fill",
+      "h": 1100,
+      "is_interactive": true,
+      "title": "Sign up, log in and onboarding",
+      "w": 1440,
+      "x": 0,
+      "y": 6400
+    },
+    "Research.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "title": "Research hub",
+      "w": 1440,
+      "x": 6080,
+      "y": 6400
+    },
+    "StrategyLab.dc.html": {
+      "expand": "fill",
+      "h": 2100,
+      "is_interactive": true,
+      "title": "Strategy Lab (robot builder)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Tools.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "title": "Risk calculator and prop-firm tracker",
+      "w": 1440,
+      "x": 9120,
+      "y": 6400
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-03T11:30:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "appTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "MARKIQ SI \u2014 signed-in app",
+      "w": 240,
+      "x": 0,
+      "y": 6080
+    },
+    "siteTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "MARKIQ SI \u2014 launch website preview",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Academy.dc.html",
+    "Lesson.dc.html",
+    "StrategyLab.dc.html",
+    "ChartLab.dc.html",
+    "LiveDesk.dc.html",
+    "Journal.dc.html",
+    "Onboarding.dc.html",
+    "Dashboard.dc.html",
+    "Markets.dc.html",
+    "Explorer.dc.html",
+    "Research.dc.html",
+    "Alerts.dc.html",
+    "Tools.dc.html",
+    "Community.dc.html",
+    "News.dc.html"
+  ],
+  "pages": [],
+  "title": "MARKIQ SI Website"
+}

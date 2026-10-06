@@ -1,0 +1,310 @@
+/* MarkIQ SI — Design Tokens & Global Styles */
+
+:root {
+  /* Section 3: Colours (dark blue, luxurious) */
+  --bg:          #060F22; /* page background */
+  --bg-sidebar:  #050C1C; /* app sidebar */
+  --surface:     #0B1A36; /* cards */
+  --surface-2:   #102449; /* raised / active */
+  --line:        #1C3563; /* card borders */
+  --line-strong: #2B4A82; /* inputs, outlines */
+  --text:        #EAF1FF; /* primary text */
+  --muted:       #A3B5D6; /* secondary text */
+  --dim:         #7F93B8; /* captions / inactive */
+  --blue:        #4A9DFF; /* brand accent ("SI" badge) */
+  --blue-soft:   #7DB8FF; /* links, labels */
+  --button:      #1F6FE5; /* secondary buttons (white text) */
+  --amber:       #FFB547; /* primary CTA (text #1A1203) */
+  --up:          #3DDC97; /* rose / profit / positive (mint) */
+  --down:        #FF8A5B; /* fell / loss / high impact (coral) */
+
+  /* Section 3: Shape & Radii */
+  --radius-card: 16px;
+  --radius-btn:  12px;
+  --radius-chip: 9999px;
+  --radius-sm:   8px;
+  --radius-xs:   4px;
+
+  /* Typography fallback bindings */
+  --font-space-grotesk: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ibm-plex-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ibm-plex-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Typography utilities */
+.font-heading {
+  font-family: var(--font-space-grotesk);
+}
+
+.font-body {
+  font-family: var(--font-ibm-plex-sans);
+}
+
+.font-mono {
+  font-family: var(--font-ibm-plex-mono);
+}
+
+/* Selection */
+::selection {
+  background: var(--amber);
+  color: #1A1203;
+}
+
+/* Base links */
+a {
+  color: var(--blue-soft);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #B5D6FF;
+}
+
+/* Section 5: Design Motion classes */
+@keyframes mq-rise {
+  from {
+    opacity: 0.85;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mq-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes mq-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mq-rise {
+    animation: mq-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .mq-d1 { animation-delay: 0.08s; }
+  .mq-d2 { animation-delay: 0.16s; }
+  .mq-d3 { animation-delay: 0.24s; }
+  .mq-d4 { animation-delay: 0.32s; }
+
+  .mq-float {
+    animation: mq-float 8s ease-in-out infinite;
+  }
+
+  .mq-pulse {
+    animation: mq-pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes mq-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes mq-grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .mq-marquee {
+    animation: mq-marquee 48s linear infinite;
+  }
+
+  .mq-grow {
+    transform-origin: left center;
+    animation: mq-grow 1.6s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .mq-lift {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .mq-lift:hover {
+    transform: translateY(-4px);
+    border-color: #3A62A8 !important;
+    box-shadow: 0 20px 50px rgba(2, 8, 24, 0.6);
+  }
+
+  .mq-btn {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, filter 0.3s ease;
+  }
+  .mq-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 181, 71, 0.25);
+    filter: brightness(1.06);
+  }
+}
+
+/* Reduced Motion Override - Section 5 & Rule 7 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .mq-rise,
+  .mq-float,
+  .mq-pulse,
+  .mq-lift,
+  .mq-btn {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Layout Responsive Utilities */
+.app-shell-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.hero-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Top Nav Elements */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 15px;
+}
+
+.desktop-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  min-width: 44px;
+  flex-shrink: 0;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.mobile-login-btn {
+  display: none;
+  align-items: center;
+}
+
+.app-desktop-sidebar {
+  display: block;
+}
+
+.app-mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 859px) {
+  .app-shell-container {
+    flex-direction: column !important;
+  }
+  .app-desktop-sidebar {
+    display: none !important;
+  }
+  .app-mobile-topbar {
+    display: flex !important;
+  }
+  .desktop-nav {
+    display: none !important;
+  }
+  .desktop-actions {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+  .mobile-login-btn {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-btn-group {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-btn-group a {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

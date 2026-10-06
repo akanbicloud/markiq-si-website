@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Lesson and AI Tutor</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes mq-ring{0%{box-shadow:0 0 0 0 rgba(255,181,71,.45)}100%{box-shadow:0 0 0 22px rgba(255,181,71,0)}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-pulse{animation:mq-pulse 2.4s ease-in-out infinite}
+.mq-ring{animation:mq-ring 2.2s cubic-bezier(.16,1,.3,1) infinite}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),filter .4s ease}
+.mq-btn:hover{transform:scale(1.06);filter:brightness(1.06)}
+button{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+@supports (animation-timeline: view()){
+.mq-reveal{animation:mq-rise linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0;">
+<div style="padding: 16px clamp(16px, 3vw, 40px) 0; display: flex; justify-content: flex-end;"><span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 4px 12px; border-radius: 999px;">Sample lesson · preview</span></div>
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 32px 24px 96px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start;">
+
+<main style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #A3B5D6; display: flex; flex-wrap: wrap; gap: 8px;">
+<a href="Academy.dc.html" style="text-decoration: none;">Academy</a><span aria-hidden="true">/</span><span>Fundamentals</span><span aria-hidden="true">/</span><span>F3 · Inflation, jobs and growth</span>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF; letter-spacing: 0.08em;">LESSON 3 OF 6 · ABOUT 18 MIN</div>
+<h1 class="mq-rise" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.02em;">How inflation data moves currencies</h1>
+</div>
+
+<div style="aspect-ratio: 16 / 9; background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;">
+<button type="button" class="mq-btn mq-ring" aria-label="Play video lesson" style="width: 76px; height: 76px; border-radius: 50%; border: none; background: #FFB547; color: #1A1203; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+<span aria-hidden="true" style="width: 0; height: 0; margin-left: 6px; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-left: 21px solid #1A1203;"></span>
+</button>
+<div style="font-size: 14px; color: #A3B5D6;">Video lesson · 12 min · coming soon</div>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px;">Key points</h2>
+<ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; color: #C9D6EE;">
+<li><strong style="color: #EAF1FF;">CPI</strong> tracks the change in prices that households pay for everyday goods and services.</li>
+<li>Markets react to the <strong style="color: #EAF1FF;">surprise</strong> — the gap between the actual number and the forecast — more than to the number itself.</li>
+<li>Hotter-than-expected inflation makes higher interest rates more likely, which often (not always) strengthens the currency.</li>
+<li>Cooler-than-expected inflation does the opposite. Always check how big the surprise was before reacting.</li>
+</ul>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #FFB547; letter-spacing: 0.08em;">WRITE IT IN YOUR OWN WORDS</div>
+<label for="reflection" style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;">Why might a hotter-than-expected CPI strengthen a currency? Connect it to what you learned about forecasts in Lesson 2.</label>
+</div>
+<textarea id="reflection" rows="5" placeholder="Type your answer here…" style="width: 100%; box-sizing: border-box; padding: 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 16px; resize: vertical;"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<button type="button" onClick="{{saveReflection}}" style="min-height: 44px; padding: 0 20px; border-radius: 10px; border: 1px solid #2B4A82; background: #102449; color: #EAF1FF; font: inherit; font-weight: 600; cursor: pointer;">Save my answer</button>
+<sc-if value="{{reflectionSaved}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 14px; color: #3DDC97;">Saved. The AI Tutor will give feedback on written answers at launch.</span>
+</sc-if>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px;">Lesson quiz</h2>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">5 questions, including one from Lesson 2. Score 80% or more to move on.</p>
+</div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">{{answeredLabel}}</span>
+</div>
+
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="5">
+<fieldset class="mq-reveal" style="margin: 0; border: 1px solid #1C3563; border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; background: #081530;">
+<legend style="padding: 0 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7DB8FF; letter-spacing: 0.06em;">{{q.tag}}</legend>
+<div style="font-size: 17px; font-weight: 600;">{{q.text}}</div>
+<sc-for list="{{q.options}}" as="o" hint-placeholder-count="4">
+<button type="button" onClick="{{o.pick}}" disabled="{{o.locked}}" style="{{o.style}}">
+<span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; width: 20px; flex: none;">{{o.letter}}</span>
+<span style="flex: 1;">{{o.label}}</span>
+<span style="{{o.markStyle}}">{{o.mark}}</span>
+</button>
+</sc-for>
+<sc-if value="{{q.showFeedback}}" hint-placeholder-val="{{false}}">
+<div class="mq-rise" style="{{q.feedbackStyle}}">{{q.feedback}}</div>
+</sc-if>
+</fieldset>
+</sc-for>
+
+<sc-if value="{{notSubmitted}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+<button type="button" onClick="{{submit}}" disabled="{{notReady}}" style="{{submitStyle}}">Check my answers</button>
+<span style="font-size: 14px; color: #A3B5D6;">{{submitHint}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{submitted}}" hint-placeholder-val="{{false}}">
+<div class="mq-rise" style="{{resultBoxStyle}}">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 44px; font-weight: 500;">{{pct}}%</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700;">{{resultTitle}}</span>
+</div>
+<p style="margin: 0; color: #C9D6EE;">{{resultText}}</p>
+<sc-if value="{{hasMissed}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-size: 14px; font-weight: 600;">Review these sections:</div>
+<sc-for list="{{missed}}" as="m" hint-placeholder-count="2">
+<div style="font-size: 15px; color: #FFC9B5;">• {{m}}</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: flex; flex-wrap: wrap; gap: 12px;">
+<sc-if value="{{passed}}" hint-placeholder-val="{{false}}">
+<a href="Academy.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none;">Continue the course</a>
+</sc-if>
+<button type="button" onClick="{{retake}}" style="min-height: 48px; padding: 0 22px; border-radius: 12px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-weight: 600; cursor: pointer;">{{retakeLabel}}</button>
+</div>
+</div>
+</sc-if>
+</section>
+</main>
+
+<aside style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Module F3</h2>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">2 of 6 done</span>
+</div>
+<div style="height: 8px; background: #102449; border-radius: 4px;"><div style="width: 33%; height: 8px; background: #4A9DFF; border-radius: 4px;"></div></div>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 14px;">
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#3DDC97" role="img" aria-label="Completed" style="flex: none;"><path d="M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z"></path></svg><span style="flex: 1;">1. What inflation is</span><span style="font-family: 'IBM Plex Mono', monospace; color: #3DDC97;">100%</span></li>
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#3DDC97" role="img" aria-label="Completed" style="flex: none;"><path d="M172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76ZM230,128A102,102,0,1,1,128,26,102.12,102.12,0,0,1,230,128Zm-12,0a90,90,0,1,0-90,90A90.1,90.1,0,0,0,218,128Z"></path></svg><span style="flex: 1;">2. Forecast, actual and surprise</span><span style="font-family: 'IBM Plex Mono', monospace; color: #3DDC97;">80%</span></li>
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; background: #102449;" aria-current="step"><svg class="mq-pulse" width="20" height="20" viewBox="0 0 256 256" fill="#FFB547" role="img" aria-label="In progress" style="flex: none;"><path d="M98.19,36.54a6,6,0,0,1,4.3-7.31,102.12,102.12,0,0,1,51,0,6,6,0,0,1-3,11.62,90,90,0,0,0-45,0A6,6,0,0,1,98.19,36.54Zm-43,20A102.07,102.07,0,0,0,29.7,100.7a6,6,0,0,0,4.19,7.38,5.88,5.88,0,0,0,1.6.22,6,6,0,0,0,5.78-4.4A90,90,0,0,1,63.78,65a6,6,0,1,0-8.56-8.41ZM41.28,152.09a6,6,0,1,0-11.56,3.2,102,102,0,0,0,25.49,44.18,6,6,0,0,0,8.55-8.41A90.11,90.11,0,0,1,41.28,152.09Zm109.21,63.06a90,90,0,0,1-45,0,6,6,0,1,0-3,11.62,102.16,102.16,0,0,0,51,0,6,6,0,0,0-3-11.62Zm71.62-67.23a6,6,0,0,0-7.38,4.18,90,90,0,0,1-22.51,39,6,6,0,1,0,8.56,8.41A102.12,102.12,0,0,0,226.3,155.3,6,6,0,0,0,222.11,147.92Zm-7.39-44a6,6,0,0,0,5.78,4.4,5.88,5.88,0,0,0,1.6-.22,6,6,0,0,0,4.18-7.38,102,102,0,0,0-25.49-44.18,6,6,0,0,0-8.55,8.41A90.05,90.05,0,0,1,214.72,103.91Z"></path></svg><span style="flex: 1; font-weight: 600;">3. How inflation moves currencies</span></li>
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; color: #7F93B8;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#7F93B8" role="img" aria-label="Locked" style="flex: none;"><path d="M208,82H174V56a46,46,0,0,0-92,0V82H48A14,14,0,0,0,34,96V208a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V96A14,14,0,0,0,208,82ZM94,56a34,34,0,0,1,68,0V82H94ZM210,208a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V96a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2Z"></path></svg><span style="flex: 1;">4. Headline versus core inflation</span></li>
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; color: #7F93B8;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#7F93B8" role="img" aria-label="Locked" style="flex: none;"><path d="M208,82H174V56a46,46,0,0,0-92,0V82H48A14,14,0,0,0,34,96V208a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V96A14,14,0,0,0,208,82ZM94,56a34,34,0,0,1,68,0V82H94ZM210,208a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V96a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2Z"></path></svg><span style="flex: 1;">5. Jobs data: payrolls and unemployment</span></li>
+<li style="display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; color: #7F93B8;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#7F93B8" role="img" aria-label="Locked" style="flex: none;"><path d="M208,82H174V56a46,46,0,0,0-92,0V82H48A14,14,0,0,0,34,96V208a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V96A14,14,0,0,0,208,82ZM94,56a34,34,0,0,1,68,0V82H94ZM210,208a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V96a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2Z"></path></svg><span style="flex: 1;">Checkpoint quiz</span></li>
+</ol>
+</section>
+
+<section aria-label="AI Tutor" style="background: #0B1A36; border: 1px solid #2B4A82; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<span class="mq-pulse" aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #3DDC97;"></span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Ask the AI Tutor</h2>
+</div>
+<span style="font-size: 11px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 8px; border-radius: 999px;">Preview</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{messages}}" as="msg" hint-placeholder-count="2">
+<div class="mq-rise" style="{{msg.style}}">{{msg.text}}</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{suggestions}}" as="s" hint-placeholder-count="3">
+<button type="button" onClick="{{s.pick}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #2B4A82; background: transparent; color: #C9D6EE; font: inherit; font-size: 13px; cursor: pointer;">{{s.text}}</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px;">
+<label for="tutor-input" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Ask a question</label>
+<input id="tutor-input" type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="Ask about this lesson…" style="flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<button type="button" onClick="{{send}}" aria-label="Send question" style="width: 44px; height: 44px; flex: none; border-radius: 10px; border: none; background: #1F6FE5; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#FFFFFF" aria-hidden="true"><path d="M225.88,30.12a13.83,13.83,0,0,0-13.7-3.58l-.11,0L20.14,84.77A14,14,0,0,0,18,110.85l85.56,41.64L145.12,238a13.87,13.87,0,0,0,12.61,8c.4,0,.81,0,1.21-.05a13.9,13.9,0,0,0,12.29-10.09l58.2-191.930,0-.11A13.83,13.83,0,0,0,225.88,30.12Zm-8,10.4L159.73,232.43l0,.11a2,2,0,0,1-3.76.26l-40.68-83.58,49-49a6,6,0,1,0-8.49-8.49l-49,49L23.15,100a2,2,0,0,1,.31-3.74l.11,0L215.48,38.08a1.94,1.94,0,0,1,1.92.52A2,2,0,0,1,217.92,40.52Z"></path></svg></button>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">The tutor explains lessons. It does not give trading signals or investment advice.</p>
+</section>
+</aside>
+
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      answers: {},
+      submitted: false,
+      reflectionSaved: false,
+      draft: '',
+      messages: [
+        { role: 'user', text: 'What is the difference between CPI and core CPI?' },
+        { role: 'tutor', text: 'Core CPI leaves out food and energy, whose prices jump around a lot. It shows the steadier, underlying trend in inflation, which is why central banks watch it closely. You will cover this properly in Lesson 4.' }
+      ]
+    };
+  }
+
+  quiz() {
+    return [
+      { tag: 'QUESTION 1', section: 'Key point 1: what CPI measures', text: 'What does the Consumer Price Index (CPI) measure?',
+        options: ['The total value of goods a country produces', 'Changes in the prices consumers pay for goods and services', 'The number of new jobs created each month', "The central bank's interest rate"], correct: 1,
+        why: 'CPI tracks how the prices households pay change over time. GDP measures output, and payrolls measure jobs.' },
+      { tag: 'QUESTION 2', section: 'Key point 2: forecasts and surprises', text: "On the economic calendar, what is the 'forecast'?",
+        options: ["Last month's figure", "Economists' average expectation before the release", "The central bank's inflation target", 'The price a currency will reach'], correct: 1,
+        why: 'The forecast is the consensus expectation. Markets react to how far the actual number lands from it.' },
+      { tag: 'QUESTION 3', section: 'Key point 3: inflation and interest rates', text: 'If inflation comes in hotter than expected, a central bank is more likely to…',
+        options: ['Cut interest rates quickly', 'Keep rates higher for longer, or raise them', 'Stop publishing data', 'Ignore the result completely'], correct: 1,
+        why: 'Central banks fight high inflation with higher interest rates, so a hot print makes cuts less likely.' },
+      { tag: 'QUESTION 4', section: 'Key point 3: inflation and currencies', text: "Higher-than-expected CPI often (not always) leads that country's currency to…",
+        options: ['Strengthen, as markets expect higher interest rates', 'Weaken immediately and permanently', 'Stay exactly the same', 'Stop trading for the day'], correct: 0,
+        why: 'Higher expected rates tend to attract money into the currency. "Often" matters: other news can outweigh it.' },
+      { tag: 'REVIEW · LESSON 2', section: 'Lesson 2: forecast, actual and surprise', text: "What does 'surprise' mean on a MARKIQ SI card?",
+        options: ['An unscheduled news event', 'The gap between the actual number and the forecast', 'A sudden spike in price', 'A breaking headline'], correct: 1,
+        why: 'Surprise is actual minus forecast. The bigger the gap, the bigger the usual reaction.' }
+    ];
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    return Object.assign({ navGroups: this.navGroups('Lesson.dc.html') }, this.pageVals());
+  }
+
+  pageVals() {
+    const qs = this.quiz();
+    const { answers, submitted } = this.state;
+    const letters = ['A', 'B', 'C', 'D'];
+    const optBase = "display: flex; gap: 12px; align-items: center; width: 100%; box-sizing: border-box; text-align: left; padding: 14px 16px; border-radius: 10px; font: inherit; font-size: 15px; color: #EAF1FF; min-height: 48px; ";
+    let correctCount = 0;
+    const missed = [];
+
+    const questions = qs.map((q, qi) => {
+      const chosen = answers[qi];
+      const isRight = chosen === q.correct;
+      if (submitted && isRight) correctCount += 1;
+      if (submitted && !isRight) missed.push(q.section);
+      const options = q.options.map((label, oi) => {
+        let style = optBase;
+        let mark = '';
+        let markStyle = 'font-size: 13px; font-weight: 600; ';
+        if (!submitted) {
+          style += oi === chosen
+            ? 'background: #102449; border: 2px solid #4A9DFF; cursor: pointer;'
+            : 'background: #0B1A36; border: 2px solid #1C3563; cursor: pointer;';
+        } else if (oi === q.correct) {
+          style += 'background: rgba(61,220,151,0.10); border: 2px solid #3DDC97;';
+          mark = 'Correct answer';
+          markStyle += 'color: #3DDC97;';
+        } else if (oi === chosen) {
+          style += 'background: rgba(255,138,91,0.10); border: 2px solid #FF8A5B;';
+          mark = 'Your answer';
+          markStyle += 'color: #FF8A5B;';
+        } else {
+          style += 'background: #0B1A36; border: 2px solid #16294F; color: #A3B5D6;';
+        }
+        return {
+          letter: letters[oi], label, style, mark, markStyle, locked: submitted,
+          pick: () => { if (!this.state.submitted) this.setState({ answers: { ...this.state.answers, [qi]: oi } }); }
+        };
+      });
+      return {
+        tag: q.tag, text: q.text, options,
+        showFeedback: submitted,
+        feedback: (isRight ? 'Correct. ' : 'Not quite. ') + q.why,
+        feedbackStyle: 'font-size: 14px; padding: 12px 14px; border-radius: 10px; background: #0B1A36; color: ' + (isRight ? '#A9F0CF' : '#FFC9B5') + ';'
+      };
+    });
+
+    const answeredCount = Object.keys(answers).length;
+    const allAnswered = answeredCount === qs.length;
+    const pct = Math.round((correctCount / qs.length) * 100);
+    const passed = submitted && pct >= 80;
+
+    const msgBase = 'font-size: 14px; padding: 10px 12px; border-radius: 12px; max-width: 92%; ';
+    const messages = this.state.messages.map((m) => ({
+      text: m.text,
+      style: msgBase + (m.role === 'user'
+        ? 'align-self: flex-end; background: #1F6FE5; color: #FFFFFF;'
+        : 'align-self: flex-start; background: #102449; color: #EAF1FF;')
+    }));
+
+    const ask = (text) => {
+      const t = (text || '').trim();
+      if (!t) return;
+      this.setState({
+        draft: '',
+        messages: [...this.state.messages,
+          { role: 'user', text: t },
+          { role: 'tutor', text: 'Thanks — the AI Tutor is in preview, so this answer is a placeholder. At launch it will answer from your lessons and explain it at your level.' }]
+      });
+    };
+
+    return {
+      questions,
+      answeredLabel: answeredCount + ' of ' + qs.length + ' answered',
+      notSubmitted: !submitted,
+      submitted,
+      notReady: !allAnswered,
+      submitHint: allAnswered ? 'Ready when you are.' : 'Answer every question to check your score.',
+      submitStyle: 'min-height: 52px; padding: 0 26px; border-radius: 12px; border: none; font: inherit; font-weight: 600; font-size: 16px; ' +
+        (allAnswered ? 'background: #FFB547; color: #1A1203; cursor: pointer;' : 'background: #16294F; color: #7F93B8; cursor: not-allowed;'),
+      pct,
+      passed,
+      resultTitle: passed ? 'You are ready to move on.' : 'Review before moving on.',
+      resultText: passed
+        ? 'Great work. Next up: Lesson 4, headline versus core inflation. Your score has been added to your dashboard.'
+        : 'You need 80% to unlock Lesson 4. Rewatch the sections below, check the explanations above, then retake the quiz. You can ask the AI Tutor about anything that is still unclear.',
+      hasMissed: missed.length > 0,
+      missed,
+      retakeLabel: passed ? 'Retake anyway' : 'Review and retake',
+      resultBoxStyle: 'display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 16px; background: #0B1A36; border: 2px solid ' + (passed ? '#3DDC97' : '#FF8A5B') + ';',
+      submit: () => { if (Object.keys(this.state.answers).length === qs.length) this.setState({ submitted: true }); },
+      retake: () => this.setState({ answers: {}, submitted: false }),
+      reflectionSaved: this.state.reflectionSaved,
+      saveReflection: () => this.setState({ reflectionSaved: true }),
+      messages,
+      draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      send: () => ask(this.state.draft),
+      suggestions: [
+        { text: 'Explain surprise simply' },
+        { text: 'Why do rates move currencies?' },
+        { text: 'Quiz me on Lesson 2' }
+      ].map((s) => ({ ...s, pick: () => ask(s.text) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

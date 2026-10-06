@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Trading Journal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}.mq-d2{animation-delay:.2s}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease,box-shadow .6s ease}
+.mq-lift:hover{transform:translateY(-4px);border-color:#3A62A8 !important;box-shadow:0 24px 60px rgba(2,8,24,.6)}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+.mq-bar{animation:mq-grow .9s cubic-bezier(.16,1,.3,1) both}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0;">
+<div style="padding: 16px clamp(16px, 3vw, 40px) 0; display: flex; justify-content: flex-end;"><span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 4px 12px; border-radius: 999px;">Preview · coming soon</span></div>
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 48px 24px 96px; display: flex; flex-direction: column; gap: 28px;">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">Trading Journal</div>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.025em;">Every trade, honestly recorded.</h1>
+<p class="mq-rise mq-d2" style="margin: 0; color: #A3B5D6; font-size: 17px; max-width: 640px;">Log your trades, tag your setups and mistakes, and let your own numbers show you what works.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+<sc-if value="{{showingExamples}}" hint-placeholder-val="{{true}}">
+<span style="font-size: 13px; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px; font-weight: 600;">Showing example trades</span>
+<button type="button" onClick="{{clearExamples}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-size: 14px; cursor: pointer;">Clear examples</button>
+</sc-if>
+<button type="button" disabled="{{true}}" title="Coming soon" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #16294F; background: transparent; color: #7F93B8; font: inherit; font-size: 14px; cursor: not-allowed;">Import from MT5 · soon</button>
+</div>
+</div>
+
+<section aria-label="Your statistics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px;">
+<sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 13px; color: #A3B5D6;">{{s.label}}</span>
+<span style="{{s.valueStyle}}">{{s.value}}</span>
+</div>
+</sc-for>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<section aria-label="P&amp;L calendar" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<button type="button" onClick="{{prevMonth}}" aria-label="Previous month" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z"></path></svg></button>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px; min-width: 170px; text-align: center;">{{monthLabel}}</h2>
+<button type="button" onClick="{{nextMonth}}" aria-label="Next month" style="width: 40px; height: 40px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z"></path></svg></button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">
+<span>Month <span style="{{monthNetStyle}}">{{monthNet}}</span></span>
+<span><span style="color: #3DDC97;">{{greenDays}}</span> green days</span>
+<span><span style="color: #FF8A5B;">{{redDays}}</span> red days</span>
+</div>
+</div>
+<div style="overflow-x: auto;">
+<div style="min-width: 640px; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px;">
+<sc-for list="{{weekdays}}" as="w" hint-placeholder-count="8">
+<div style="font-size: 12px; color: #A3B5D6; text-align: center; padding-bottom: 4px;">{{w}}</div>
+</sc-for>
+<sc-for list="{{calCells}}" as="c" hint-placeholder-count="35">
+<div style="{{c.style}}">
+<span style="font-size: 12px; color: #A3B5D6;">{{c.dayLabel}}</span>
+<span style="{{c.pnlStyle}}">{{c.pnlLabel}}</span>
+<span style="font-size: 11px; color: #A3B5D6;">{{c.countLabel}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Darker colour = bigger day. Results are in pips; account currency P&amp;L arrives with MT5 import.</p>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Trade by trade</h2>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">Running total {{totalLabel}}</span>
+</div>
+<div role="img" aria-label="Result of each trade in pips" style="position: relative; height: 180px; display: flex; align-items: stretch; gap: 6px; border-top: 1px solid #12264A; border-bottom: 1px solid #12264A;">
+<div style="position: absolute; left: 0; right: 0; top: 90px; height: 1px; background: #2B4A82;"></div>
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="8">
+<div style="flex: 1; position: relative;">
+<div class="mq-bar" style="{{b.style}}"></div>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 18px; font-size: 13px; color: #A3B5D6;">
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #3DDC97;"></span>Winning trade</span>
+<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #FF8A5B;"></span>Losing trade</span>
+</div>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Trades</h2>
+<div style="overflow-x: auto;">
+<table style="width: 100%; min-width: 620px; border-collapse: collapse; font-size: 14px;">
+<thead>
+<tr style="text-align: left; color: #A3B5D6;">
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Date</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Market</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Side</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Setup</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Mistake</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563; text-align: right;">Result (pips)</th>
+</tr>
+</thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+<tr class="mq-rise">
+<td style="padding: 10px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace; color: #A3B5D6;">{{r.date}}</td>
+<td style="padding: 10px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace;">{{r.pair}}</td>
+<td style="padding: 10px 8px; border-bottom: 1px solid #12264A;">{{r.dir}}</td>
+<td style="padding: 10px 8px; border-bottom: 1px solid #12264A;">{{r.setup}}</td>
+<td style="padding: 10px 8px; border-bottom: 1px solid #12264A; color: #A3B5D6;">{{r.mistake}}</td>
+<td style="{{r.pipsStyle}}">{{r.pipsLabel}}</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">No trades yet. Log your first one with the form.</p>
+</sc-if>
+</section>
+</div>
+
+<aside style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+<section style="background: #0B1A36; border: 1px solid #2B4A82; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Log a trade</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="j-pair" style="font-size: 13px; color: #A3B5D6;">Market</label>
+<select id="j-pair" value="{{form.pair}}" onChange="{{setPair}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<option>EURUSD</option><option>GBPUSD</option><option>USDJPY</option><option>USDZAR</option><option>XAUUSD</option><option>USOIL</option><option>US500</option><option>BTCUSD</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="j-dir" style="font-size: 13px; color: #A3B5D6;">Side</label>
+<select id="j-dir" value="{{form.dir}}" onChange="{{setDir}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<option>Buy</option><option>Sell</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="j-setup" style="font-size: 13px; color: #A3B5D6;">Setup</label>
+<select id="j-setup" value="{{form.setup}}" onChange="{{setSetup}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<option>Breakout</option><option>Pullback</option><option>Range</option><option>News</option>
+</select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="j-pips" style="font-size: 13px; color: #A3B5D6;">Result (pips)</label>
+<input id="j-pips" type="number" step="0.1" value="{{form.pips}}" onChange="{{setPips}}" placeholder="e.g. 25 or -12" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px; min-width: 0;">
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="j-mistake" style="font-size: 13px; color: #A3B5D6;">Mistake, if any</label>
+<select id="j-mistake" value="{{form.mistake}}" onChange="{{setMistake}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<option>None</option><option>Entered too early</option><option>Moved my stop</option><option>Traded the news spike</option><option>Too large a position</option><option>Revenge trade</option>
+</select>
+</div>
+<button type="button" onClick="{{addTrade}}" class="mq-btn" style="min-height: 48px; border-radius: 12px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">Add to journal</button>
+<sc-if value="{{formError}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 14px; color: #FFC9B5;">Enter the result in pips first.</span>
+</sc-if>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">What your journal says</h2>
+<span style="font-size: 11px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 8px; border-radius: 999px;">Auto review</span>
+</div>
+<sc-for list="{{insights}}" as="i" hint-placeholder-count="3">
+<div style="display: flex; gap: 10px; font-size: 15px;"><span aria-hidden="true" style="flex: none; width: 6px; height: 6px; margin-top: 10px; border-radius: 50%; background: #FFB547;"></span><span>{{i}}</span></div>
+</sc-for>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Calculated from the trades above. At launch, the AI Tutor adds a weekly written review.</p>
+</section>
+</aside>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      examples: true,
+      formError: false,
+      cal: { y: 2026, m: 8 },
+      form: { pair: 'EURUSD', dir: 'Buy', setup: 'Breakout', pips: '', mistake: 'None' },
+      trades: [
+        { iso: '2026-09-14', pair: 'EURUSD', dir: 'Buy', setup: 'Pullback', mistake: 'None', pips: 18 },
+        { iso: '2026-09-16', pair: 'USDJPY', dir: 'Sell', setup: 'Breakout', mistake: 'Entered too early', pips: -10 },
+        { iso: '2026-09-17', pair: 'GBPUSD', dir: 'Buy', setup: 'Range', mistake: 'None', pips: 9 },
+        { iso: '2026-09-22', pair: 'EURUSD', dir: 'Buy', setup: 'Pullback', mistake: 'None', pips: 32 },
+        { iso: '2026-09-23', pair: 'XAUUSD', dir: 'Sell', setup: 'Breakout', mistake: 'Entered too early', pips: -18 },
+        { iso: '2026-09-23', pair: 'GBPUSD', dir: 'Buy', setup: 'Pullback', mistake: 'None', pips: 21 },
+        { iso: '2026-09-24', pair: 'USDJPY', dir: 'Buy', setup: 'News', mistake: 'Traded the news spike', pips: -27 },
+        { iso: '2026-09-25', pair: 'EURUSD', dir: 'Sell', setup: 'Range', mistake: 'None', pips: 14 },
+        { iso: '2026-09-29', pair: 'XAUUSD', dir: 'Buy', setup: 'Pullback', mistake: 'None', pips: 40 },
+        { iso: '2026-09-30', pair: 'GBPUSD', dir: 'Sell', setup: 'News', mistake: 'Traded the news spike', pips: -22 },
+        { iso: '2026-10-01', pair: 'EURUSD', dir: 'Buy', setup: 'Breakout', mistake: 'Moved my stop', pips: -15 }
+      ]
+    };
+  }
+
+  setForm(key, value) {
+    this.setState({ form: { ...this.state.form, [key]: value }, formError: false });
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    return Object.assign({ navGroups: this.navGroups('Journal.dc.html') }, this.pageVals());
+  }
+
+  pageVals() {
+    const trades = this.state.trades;
+    const n = trades.length;
+    const wins = trades.filter((t) => t.pips > 0);
+    const losses = trades.filter((t) => t.pips <= 0);
+    const sum = (a) => a.reduce((s, t) => s + t.pips, 0);
+    const total = sum(trades);
+    const winRate = n ? Math.round((wins.length / n) * 100) : 0;
+    const avgWin = wins.length ? sum(wins) / wins.length : 0;
+    const avgLoss = losses.length ? Math.abs(sum(losses) / losses.length) : 0;
+    const signed = (v) => (v > 0 ? '+' : '') + (Math.round(v * 10) / 10);
+    const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 500; ";
+
+    const stats = [
+      { label: 'Trades logged', value: String(n), valueStyle: mono + 'color: #EAF1FF;' },
+      { label: 'Win rate', value: n ? winRate + '%' : '—', valueStyle: mono + 'color: #EAF1FF;' },
+      { label: 'Average win', value: wins.length ? '+' + avgWin.toFixed(1) : '—', valueStyle: mono + 'color: #3DDC97;' },
+      { label: 'Average loss', value: losses.length ? '-' + avgLoss.toFixed(1) : '—', valueStyle: mono + 'color: #FF8A5B;' },
+      { label: 'Net pips', value: n ? signed(total) : '—', valueStyle: mono + 'color: ' + (total >= 0 ? '#3DDC97' : '#FF8A5B') + ';' }
+    ];
+
+    const maxAbs = Math.max(1, ...trades.map((t) => Math.abs(t.pips)));
+    const bars = trades.map((t) => {
+      const h = Math.max(2, (Math.abs(t.pips) / maxAbs) * 80);
+      return {
+        style: t.pips > 0
+          ? 'position: absolute; left: 15%; right: 15%; bottom: 90px; height: ' + h + 'px; background: #3DDC97; border-radius: 3px 3px 0 0; transform-origin: bottom;'
+          : 'position: absolute; left: 15%; right: 15%; top: 90px; height: ' + h + 'px; background: #FF8A5B; border-radius: 0 0 3px 3px; transform-origin: top;'
+      };
+    });
+
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const fmtDate = (iso) => { const p = iso.split('-'); return Number(p[2]) + ' ' + months[Number(p[1]) - 1]; };
+
+    const { y, m } = this.state.cal;
+    const prefix = y + '-' + String(m + 1).padStart(2, '0') + '-';
+    const startDow = (new Date(Date.UTC(y, m, 1)).getUTCDay() + 6) % 7;
+    const daysIn = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    const byDay = {};
+    trades.forEach((t) => {
+      if (t.iso.indexOf(prefix) === 0) {
+        const d = Number(t.iso.slice(8));
+        byDay[d] = byDay[d] || { p: 0, n: 0 };
+        byDay[d].p += t.pips; byDay[d].n += 1;
+      }
+    });
+    const dayVals = Object.keys(byDay).map((k) => byDay[k].p);
+    const maxDay = Math.max(1, ...dayVals.map(Math.abs));
+    const cellBase = 'min-height: 74px; border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 2px; box-sizing: border-box; ';
+    const tint = (v, max) => {
+      const a = (0.14 + 0.36 * Math.min(1, Math.abs(v) / max)).toFixed(2);
+      return v > 0 ? 'background: rgba(61,220,151,' + a + '); border: 1px solid #2E8C66;' : 'background: rgba(255,138,91,' + a + '); border: 1px solid #A85A3C;';
+    };
+    const pnlText = "font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: #EAF1FF;";
+    const calCells = [];
+    const totalCells = Math.ceil((startDow + daysIn) / 7) * 7;
+    let week = { p: 0, n: 0 };
+    for (let i = 0; i < totalCells; i++) {
+      const d = i - startDow + 1;
+      const inMonth = d >= 1 && d <= daysIn;
+      const info = inMonth ? byDay[d] : null;
+      if (info) { week.p += info.p; week.n += info.n; }
+      calCells.push({
+        dayLabel: inMonth ? String(d) : '',
+        pnlLabel: info ? signed(info.p) : '',
+        countLabel: info ? info.n + (info.n === 1 ? ' trade' : ' trades') : '',
+        pnlStyle: pnlText,
+        style: cellBase + (info ? tint(info.p, maxDay) : (inMonth ? 'background: #081530; border: 1px solid #12264A;' : 'background: transparent; border: 1px solid transparent;'))
+      });
+      if (i % 7 === 6) {
+        calCells.push({
+          dayLabel: 'Week',
+          pnlLabel: week.n ? signed(week.p) : '—',
+          countLabel: week.n ? week.n + (week.n === 1 ? ' trade' : ' trades') : '',
+          pnlStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: " + (week.n ? (week.p >= 0 ? '#3DDC97' : '#FF8A5B') : '#7F93B8') + ';',
+          style: cellBase + 'background: #102449; border: 1px solid #2B4A82;'
+        });
+        week = { p: 0, n: 0 };
+      }
+    }
+    const monthNetVal = dayVals.reduce((s, v) => s + v, 0);
+    const shiftMonth = (delta) => {
+      let nm = m + delta, ny = y;
+      if (nm < 0) { nm = 11; ny -= 1; }
+      if (nm > 11) { nm = 0; ny += 1; }
+      this.setState({ cal: { y: ny, m: nm } });
+    };
+
+    const rows = trades.slice().reverse().map((t) => ({
+      ...t,
+      date: fmtDate(t.iso),
+      pipsLabel: signed(t.pips),
+      pipsStyle: "padding: 10px 8px; border-bottom: 1px solid #12264A; text-align: right; font-family: 'IBM Plex Mono', monospace; color: " + (t.pips > 0 ? '#3DDC97' : '#FF8A5B') + ';'
+    }));
+
+    const bySetup = {};
+    trades.forEach((t) => { bySetup[t.setup] = (bySetup[t.setup] || 0) + t.pips; });
+    const setups = Object.keys(bySetup).sort((a, b) => bySetup[b] - bySetup[a]);
+    const mistakes = {};
+    trades.forEach((t) => { if (t.mistake !== 'None') mistakes[t.mistake] = (mistakes[t.mistake] || []).concat(t.pips); });
+    const topMistake = Object.keys(mistakes).sort((a, b) => mistakes[b].length - mistakes[a].length)[0];
+
+    const insights = [];
+    if (n < 3) {
+      insights.push('Log at least a few trades and patterns will start to show here.');
+    } else {
+      insights.push('Your best setup so far is ' + setups[0] + ' (' + signed(bySetup[setups[0]]) + ' pips). Your weakest is ' + setups[setups.length - 1] + ' (' + signed(bySetup[setups[setups.length - 1]]) + ' pips).');
+      if (topMistake) {
+        const cost = mistakes[topMistake].reduce((s, v) => s + v, 0);
+        insights.push('"' + topMistake + '" happened ' + mistakes[topMistake].length + ' time' + (mistakes[topMistake].length > 1 ? 's' : '') + ' and cost you ' + signed(cost) + ' pips.');
+      }
+      insights.push(avgWin >= avgLoss
+        ? 'Your average win is bigger than your average loss. Keep protecting that.'
+        : 'Your average loss is bigger than your average win. Review where you place your stops and targets.');
+      if (n < 20) insights.push('With ' + n + ' trades this is still a small sample. Treat these patterns as early signs, not proof.');
+    }
+
+    return {
+      stats, bars, rows, insights,
+      weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Week'],
+      calCells,
+      monthLabel: fullMonths[m] + ' ' + y,
+      monthNet: dayVals.length ? signed(monthNetVal) + ' pips' : '—',
+      monthNetStyle: 'color: ' + (dayVals.length ? (monthNetVal >= 0 ? '#3DDC97' : '#FF8A5B') : '#A3B5D6') + ';',
+      greenDays: dayVals.filter((v) => v > 0).length,
+      redDays: dayVals.filter((v) => v <= 0).length,
+      prevMonth: () => shiftMonth(-1),
+      nextMonth: () => shiftMonth(1),
+      empty: n === 0,
+      totalLabel: n ? signed(total) + ' pips' : '0 pips',
+      showingExamples: this.state.examples,
+      clearExamples: () => this.setState({ trades: [], examples: false }),
+      form: this.state.form,
+      formError: this.state.formError,
+      setPair: (e) => this.setForm('pair', e.target.value),
+      setDir: (e) => this.setForm('dir', e.target.value),
+      setSetup: (e) => this.setForm('setup', e.target.value),
+      setPips: (e) => this.setForm('pips', e.target.value),
+      setMistake: (e) => this.setForm('mistake', e.target.value),
+      addTrade: () => {
+        const f = this.state.form;
+        const pips = parseFloat(f.pips);
+        if (isNaN(pips)) { this.setState({ formError: true }); return; }
+        const d = new Date();
+        const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        this.setState({
+          cal: { y: d.getFullYear(), m: d.getMonth() },
+          trades: [...this.state.trades, { iso, pair: f.pair, dir: f.dir, setup: f.setup, mistake: f.mistake, pips }],
+          form: { ...f, pips: '' },
+          formError: false
+        });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

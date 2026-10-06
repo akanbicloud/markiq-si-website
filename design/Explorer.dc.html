@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Reaction Explorer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}
+.mq-pop{animation:mq-pop .5s cubic-bezier(.16,1,.3,1) both}
+.mq-bar{transition:width .8s cubic-bezier(.16,1,.3,1)}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 22px;">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 720px;">
+<span class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">REACTION EXPLORER</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">What usually happens after the news?</h1>
+<p style="margin: 0; color: #A3B5D6;">Pick an event and a market to see how it reacted in the past, split by hotter and cooler surprises.</p>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px;">Example figures</span>
+</div>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; color: #A3B5D6;">Event</span>
+<div role="group" aria-label="Event" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{eventChips}}" as="c" hint-placeholder-count="5">
+<button type="button" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; color: #A3B5D6;">Market</span>
+<div role="group" aria-label="Market" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{assetChips}}" as="c" hint-placeholder-count="5">
+<button type="button" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; color: #A3B5D6;">After</span>
+<div role="group" aria-label="Time after release" style="display: flex; gap: 8px;">
+<sc-for list="{{horizonChips}}" as="c" hint-placeholder-count="2">
+<button type="button" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+<sc-for list="{{scenarios}}" as="s" hint-placeholder-count="2">
+<section style="{{s.boxStyle}}">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">{{s.title}}</h2>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">{{s.sample}}</span>
+</div>
+<div style="display: flex; align-items: baseline; gap: 10px;">
+<span style="{{s.bigStyle}}">{{s.rose}}</span>
+<span style="color: #C9D6EE;">{{s.roseText}}</span>
+</div>
+<div style="height: 10px; background: #081530; border-radius: 5px; overflow: hidden;"><div class="mq-bar" style="{{s.barStyle}}"></div></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px;" role="img" aria-label="{{s.dotsLabel}}">
+<sc-for list="{{s.dots}}" as="d" hint-placeholder-count="10">
+<span class="mq-pop" style="{{d}}"></span>
+</sc-for>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<div style="background: #102449; border-radius: 10px; padding: 12px;"><div style="font-size: 12px; color: #A3B5D6;">Average move</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">{{s.avg}}</div></div>
+<div style="background: #102449; border-radius: 10px; padding: 12px;"><div style="font-size: 12px; color: #A3B5D6;">Typical range</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 18px;">{{s.range}}</div></div>
+</div>
+<sc-if value="{{s.small}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 13px; color: #FFD38A;">Small sample: fewer than 10 releases. Treat this as a guide only.</span>
+</sc-if>
+</section>
+</sc-for>
+</div>
+
+<section style="background: #102449; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px;">
+<span style="color: #7DB8FF; font-weight: 600;">Simply</span>
+<span style="font-size: 17px;">{{simply}}</span>
+<span style="font-size: 12px; color: #A3B5D6;">History describes what happened before. It does not predict the next release, and it is not a trade signal.</span>
+</section>
+
+<p style="margin: 0; font-size: 13px; color: #7F93B8;">At launch these figures come straight from the MARKIQ SI historical engine: official release times, 1-minute price data, and no look-ahead. Coverage is expanding from 2024 to 2015–2025.</p>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { ev: 'US CPI', asset: 'EURUSD', hz: '15 min' };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    const { ev, asset, hz } = this.state;
+    const chip = (on) => 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ' + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;');
+    const events = ['US CPI', 'US jobs report', 'Fed decision', 'ECB decision', 'BoE decision'];
+    const assets = ['EURUSD', 'GBPUSD', 'USDJPY', 'XAUUSD', 'BTCUSD'];
+    const horizons = ['15 min', '60 min'];
+
+    let seed = 0;
+    const key = ev + asset + hz;
+    for (let i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) % 233280;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const unit = asset === 'XAUUSD' ? '$' : (asset === 'BTCUSD' ? '%' : ' pips');
+    const scale = asset === 'XAUUSD' ? 6 : (asset === 'BTCUSD' ? 0.6 : (hz === '60 min' ? 28 : 16));
+    const ccy = ev.indexOf('ECB') === 0 ? 'EUR' : (ev.indexOf('BoE') === 0 ? 'GBP' : 'USD');
+    const baseCcy = asset === 'XAUUSD' ? 'XAU' : asset.slice(0, 3);
+    const quoteCcy = asset.slice(3, 6);
+    const dir = baseCcy === ccy ? 1 : (quoteCcy === ccy ? -1 : 0);
+    const fmt = (v) => {
+      const r = asset === 'BTCUSD' ? v.toFixed(2) : (asset === 'XAUUSD' ? v.toFixed(1) : Math.round(v).toString());
+      const s = (v > 0 ? '+' : '') + r;
+      return unit === '$' ? (v < 0 ? '-$' + r.replace('-', '') : '+$' + r) : s + unit;
+    };
+
+    const build = (label, sign, tone) => {
+      const n = 5 + Math.floor(rnd() * 9);
+      const bias = sign * dir;
+      const pRise = bias > 0 ? 0.62 + rnd() * 0.2 : (bias < 0 ? 0.18 + rnd() * 0.2 : 0.4 + rnd() * 0.2);
+      const outcomes = [];
+      for (let i = 0; i < n; i++) outcomes.push(rnd() < pRise ? 1 : -1);
+      const rose = outcomes.filter((x) => x > 0).length;
+      const avg = (pRise - 0.5) * 2 * scale * (0.8 + rnd() * 0.4);
+      const lo = avg - scale * (0.6 + rnd() * 0.3);
+      const hi = avg + scale * (0.6 + rnd() * 0.3);
+      const pct = (rose / n) * 100;
+      return {
+        title: label,
+        sample: n + ' releases',
+        rose: rose + ' of ' + n,
+        roseText: 'times ' + asset + ' rose',
+        bigStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 34px; font-weight: 500; color: " + (rose >= n / 2 ? '#3DDC97' : '#FF8A5B') + ';',
+        barStyle: 'height: 10px; border-radius: 5px; background: ' + (rose >= n / 2 ? '#3DDC97' : '#FF8A5B') + '; width: ' + pct + '%;',
+        dots: outcomes.map((o, i) => 'width: 16px; height: 16px; border-radius: 4px; animation-delay: ' + (i * 0.04) + 's; background: ' + (o > 0 ? '#3DDC97' : '#FF8A5B') + ';'),
+        dotsLabel: rose + ' rises and ' + (n - rose) + ' falls',
+        avg: fmt(avg),
+        range: fmt(lo) + ' to ' + fmt(hi),
+        small: n < 10,
+        boxStyle: 'background: #0B1A36; border: 1px solid ' + tone + '; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;',
+        roseN: rose, n
+      };
+    };
+    const hot = build(ev.indexOf('decision') >= 0 ? 'Hawkish surprise' : 'Hotter / beat', 1, '#A85A3C');
+    const cool = build(ev.indexOf('decision') >= 0 ? 'Dovish surprise' : 'Cooler / miss', -1, '#2E6BB0');
+
+    return {
+      navGroups: this.navGroups('Explorer.dc.html'),
+      eventChips: events.map((e) => ({ label: e, style: chip(e === ev), pick: () => this.setState({ ev: e }) })),
+      assetChips: assets.map((a) => ({ label: a, style: chip(a === asset), pick: () => this.setState({ asset: a }) })),
+      horizonChips: horizons.map((h) => ({ label: h, style: chip(h === hz), pick: () => this.setState({ hz: h }) })),
+      scenarios: [hot, cool],
+      simply: 'In ' + hz + ' after a ' + hot.title.toLowerCase() + ' ' + ev + ', ' + asset + ' rose ' + hot.roseN + ' of ' + hot.n + ' times. After a ' + cool.title.toLowerCase() + ' result, it rose ' + cool.roseN + ' of ' + cool.n + ' times.'
+    };
+  }
+}
+</script>
+</body>
+</html>

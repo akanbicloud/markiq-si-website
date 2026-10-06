@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Dashboard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.08s}.mq-d2{animation-delay:.16s}.mq-d3{animation-delay:.24s}.mq-d4{animation-delay:.32s}
+.mq-grow{transform-origin:left center;animation:mq-grow 1.2s .3s cubic-bezier(.16,1,.3,1) both}
+.mq-pulse{animation:mq-pulse 1.8s ease-in-out infinite}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease}
+.mq-lift:hover{transform:translateY(-4px);border-color:#3A62A8 !important}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+<div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 14px 10px 0; border-top: 1px solid #16294F;">
+<span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 50%; background: #102449; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: #7DB8FF;">Y</span>
+<div style="display: flex; flex-direction: column;"><span style="font-size: 14px; font-weight: 600;">Your account</span><span style="font-size: 12px; color: #A3B5D6;">Free plan · preview</span></div>
+</div>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 22px;">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<span class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">Wednesday · 19:35 WAT · 18:35 GMT</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">Welcome back.</h1>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px;">Example data</span>
+</div>
+
+<a href="LiveDesk.dc.html" class="mq-rise" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 18px; border-radius: 14px; background: #0D2350; border: 1px solid #2B4A82; text-decoration: none; color: #EAF1FF;">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; color: #1A0D06; background: #FF8A5B; padding: 3px 10px; border-radius: 999px;"><span class="mq-pulse" aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #1A0D06;"></span>LIVE NOW</span>
+<span style="font-weight: 600;">FOMC press conference</span>
+<span style="color: #B9C9E6; font-size: 15px;">Fed held rates at 19:00 WAT · watch and get a live summary</span>
+<span style="margin-left: auto; color: #7DB8FF; font-weight: 600;">Open Live Desk</span>
+</a>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+
+<section class="mq-rise mq-d1 mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">CONTINUE LEARNING</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">How inflation data moves currencies</h2>
+<span style="font-size: 14px; color: #A3B5D6;">Fundamentals · Module F3 · Lesson 3 of 6</span>
+<div style="height: 8px; background: #102449; border-radius: 4px;"><div class="mq-grow" style="width: 33%; height: 8px; background: #4A9DFF; border-radius: 4px;"></div></div>
+<a href="Lesson.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 10px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none;">Resume lesson</a>
+</section>
+
+<section class="mq-rise mq-d2 mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">COMING UP</span>
+<a href="Markets.dc.html" style="font-size: 14px; text-decoration: none;">Full calendar</a>
+</div>
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #12264A;"><span>US jobless claims</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">Thu 13:30 WAT</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid #12264A;"><span style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #FF8A5B;"></span>US non-farm payrolls</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">Fri 13:30 WAT</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px; padding: 10px 0;"><span>Australia retail sales</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">Mon 01:30 WAT</span></div>
+</section>
+
+<section class="mq-rise mq-d3 mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">JOURNAL · THIS WEEK</span>
+<a href="Journal.dc.html" style="font-size: 14px; text-decoration: none;">Open journal</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+<div><div style="font-size: 12px; color: #A3B5D6;">Trades</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 22px;">5</div></div>
+<div><div style="font-size: 12px; color: #A3B5D6;">Win rate</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 22px;">60%</div></div>
+<div><div style="font-size: 12px; color: #A3B5D6;">Net pips</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; color: #3DDC97;">+29</div></div>
+</div>
+<span style="font-size: 14px; color: #A3B5D6;">Most costly mistake: trading the news spike.</span>
+</section>
+
+<section class="mq-rise mq-d4 mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">YOUR ALERTS</span>
+<a href="Alerts.dc.html" style="font-size: 14px; text-decoration: none;">Edit</a>
+</div>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 15px;"><span class="mq-pulse" style="width: 8px; height: 8px; border-radius: 50%; background: #3DDC97;"></span>High-impact releases, 15 min before</span>
+<span style="font-size: 15px; color: #C9D6EE;">Rate decisions and central bank heads</span>
+<span style="font-size: 15px; color: #C9D6EE;">Markets: EURUSD, XAUUSD, USOIL</span>
+<span style="font-size: 13px; color: #A3B5D6;">Delivered by Telegram and browser</span>
+</section>
+</div>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #FFB547;">ACHIEVEMENTS</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">40% to your Fundamentals certificate</h2>
+<div style="height: 8px; background: #102449; border-radius: 4px;"><div class="mq-grow" style="width: 40%; height: 8px; background: #FFB547; border-radius: 4px;"></div></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="font-size: 13px; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">First quiz passed</span>
+<span style="font-size: 13px; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">7-day learning streak</span>
+<span style="font-size: 13px; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">10 trades journaled</span>
+<span style="font-size: 13px; border: 1px dashed #2B4A82; border-radius: 999px; padding: 4px 12px; color: #7F93B8;">First robot backtested</span>
+</div>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; border: 1px solid #5A4417; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 6px; text-align: center; background: #0D1B33;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #FFB547;">CERTIFICATE OF COMPLETION</span>
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700;">Market Fundamentals</span>
+<span style="font-size: 14px; color: #A3B5D6;">MARKIQ SI Academy · unlocks when you finish all six modules</span>
+<span style="font-size: 13px; color: #7DB8FF;">Shareable on LinkedIn</span>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">TELEGRAM</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">{{tgTitle}}</h2>
+<p style="margin: 0; font-size: 14px; color: #A3B5D6;">{{tgText}}</p>
+<button type="button" onClick="{{toggleTg}}" style="{{tgButtonStyle}}">{{tgButton}}</button>
+</section>
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7DB8FF;">INVITE FRIENDS</span>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Learn together</h2>
+<p style="margin: 0; font-size: 14px; color: #A3B5D6;">Share your link. When a friend joins, you both get [REFERRAL REWARD].</p>
+<div style="display: flex; gap: 8px;">
+<label for="ref-link" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Your invite link</label>
+<input id="ref-link" type="text" readonly="{{true}}" value="markiqsi.com/invite/your-code" style="flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #A3B5D6; font-family: 'IBM Plex Mono', monospace; font-size: 13px;">
+<button type="button" onClick="{{copyLink}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #2B4A82; background: #102449; color: #EAF1FF; font: inherit; font-weight: 600; cursor: pointer;">{{copyLabel}}</button>
+</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tg: false, copied: false };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    const tg = this.state.tg;
+    return {
+      navGroups: this.navGroups('Dashboard.dc.html'),
+      tgTitle: tg ? 'Connected to Telegram' : 'Connect your Telegram',
+      tgText: tg ? 'Your alerts and event cards arrive in the MARKIQ SI bot. You can ask it questions there too.' : 'Get your alerts and event cards in the MARKIQ SI Telegram bot, and ask it questions on the go.',
+      tgButton: tg ? 'Disconnect' : 'Connect Telegram',
+      tgButtonStyle: 'align-self: flex-start; min-height: 44px; padding: 0 18px; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer; ' + (tg ? 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;' : 'background: #1F6FE5; color: #FFFFFF; border: none;'),
+      toggleTg: () => this.setState({ tg: !this.state.tg }),
+      copyLabel: this.state.copied ? 'Copied' : 'Copy',
+      copyLink: () => this.setState({ copied: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

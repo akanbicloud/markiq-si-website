@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Market dashboard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}.mq-d2{animation-delay:.2s}
+.mq-bar{transition:width .8s cubic-bezier(.16,1,.3,1),left .8s cubic-bezier(.16,1,.3,1)}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease}
+.mq-lift:hover{transform:translateY(-4px);border-color:#3A62A8 !important}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 22px;">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<span class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">MARKET DASHBOARD</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">What's moving, and what's next.</h1>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px;">Example data · live prices with MT5 feed</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+<section aria-label="Currency strength" style="flex: 1 1 420px; min-width: 0; background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Currency strength</h2>
+<div role="group" aria-label="Time window" style="display: flex; gap: 4px; background: #060F22; border-radius: 10px; padding: 4px;">
+<sc-for list="{{windows}}" as="w" hint-placeholder-count="3">
+<button type="button" onClick="{{w.pick}}" style="{{w.style}}">{{w.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<sc-for list="{{strength}}" as="s" hint-placeholder-count="8">
+<div style="display: flex; align-items: center; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">
+<span style="width: 18px; color: #7F93B8;">{{s.rank}}</span>
+<span style="width: 40px;">{{s.ccy}}</span>
+<div style="flex: 1; position: relative; height: 10px; background: #081530; border-radius: 5px;">
+<div style="position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: #2B4A82;"></div>
+<div class="mq-bar" style="{{s.barStyle}}"></div>
+</div>
+<span style="{{s.valStyle}}">{{s.val}}</span>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Each currency's average move against the other seven over the chosen window.</p>
+</section>
+
+<section aria-label="Latest event cards" style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">Fed rate decision</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">Today 19:00 WAT</span></div>
+<span style="font-size: 14px; color: #C9D6EE;">Held, in line with expectations</span>
+<span style="font-size: 13px; color: #A3B5D6;">In line · USD little changed</span>
+</div>
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; justify-content: space-between;"><span style="font-weight: 600;">US CPI (y/y)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">Tue 13:30 WAT</span></div>
+<span style="font-size: 14px; color: #C9D6EE;">Hotter than expected</span>
+<span style="font-size: 13px; color: #FF8A5B;">Large surprise · USD strengthened</span>
+</div>
+<a href="LiveDesk.dc.html" style="display: flex; justify-content: center; align-items: center; min-height: 48px; border-radius: 12px; border: 1px solid #2B4A82; text-decoration: none; color: #EAF1FF; font-weight: 600;">Open Live Desk</a>
+</section>
+</div>
+
+<section aria-label="Economic calendar" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Economic calendar</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<div role="group" aria-label="Day" style="display: flex; gap: 6px;">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="3">
+<button type="button" onClick="{{d.pick}}" style="{{d.style}}">{{d.label}}</button>
+</sc-for>
+</div>
+<div role="group" aria-label="Impact" style="display: flex; gap: 6px;">
+<sc-for list="{{impacts}}" as="m" hint-placeholder-count="2">
+<button type="button" onClick="{{m.pick}}" style="{{m.style}}">{{m.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+<div style="overflow-x: auto;">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px;">
+<thead><tr style="text-align: left; color: #A3B5D6;">
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Time (WAT · GMT)</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Currency</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Event</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Impact</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Forecast</th>
+<th style="padding: 10px 8px; font-weight: 500; border-bottom: 1px solid #1C3563;">Previous</th>
+</tr></thead>
+<tbody>
+<sc-for list="{{events}}" as="e" hint-placeholder-count="5">
+<tr>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace; color: #C9D6EE;">{{e.time}}</td>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace;">{{e.ccy}}</td>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A;">{{e.name}}</td>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A;"><span style="{{e.impactStyle}}">{{e.impact}}</span></td>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace;">{{e.f}}</td>
+<td style="padding: 12px 8px; border-bottom: 1px solid #12264A; font-family: 'IBM Plex Mono', monospace; color: #A3B5D6;">{{e.p}}</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<sc-if value="{{noEvents}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; color: #A3B5D6;">No events match this filter.</p>
+</sc-if>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { win: '24H', day: 'Thursday', impact: 'All' };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    const data = {
+      '1H': { USD: 0.06, EUR: -0.03, GBP: 0.02, JPY: -0.05, CHF: 0.01, AUD: -0.02, CAD: 0.03, NZD: -0.04 },
+      '4H': { USD: 0.18, EUR: -0.07, GBP: 0.05, JPY: -0.16, CHF: 0.04, AUD: -0.09, CAD: 0.08, NZD: -0.11 },
+      '24H': { USD: 0.41, EUR: -0.12, GBP: 0.17, JPY: -0.38, CHF: 0.09, AUD: -0.21, CAD: 0.13, NZD: -0.27 }
+    };
+    const row = data[this.state.win];
+    const sorted = Object.keys(row).sort((a, b) => row[b] - row[a]);
+    const max = Math.max(...sorted.map((c) => Math.abs(row[c])));
+    const strength = sorted.map((c, i) => {
+      const v = row[c];
+      const w = (Math.abs(v) / max) * 50;
+      const color = v >= 0 ? '#3DDC97' : '#FF8A5B';
+      return {
+        rank: i + 1, ccy: c,
+        val: (v > 0 ? '+' : '') + v.toFixed(2) + '%',
+        valStyle: 'width: 64px; text-align: right; color: ' + color + ';',
+        barStyle: 'position: absolute; top: 0; height: 10px; border-radius: 5px; background: ' + color + '; width: ' + w + '%; left: ' + (v >= 0 ? 50 : 50 - w) + '%;'
+      };
+    });
+
+    const seg = (on) => 'min-height: 36px; padding: 0 12px; border-radius: 8px; border: none; font: inherit; font-size: 14px; cursor: pointer; ' + (on ? 'background: #1F6FE5; color: #FFFFFF; font-weight: 600;' : 'background: transparent; color: #A3B5D6;');
+    const chip = (on) => 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ' + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;');
+
+    const cal = {
+      'Thursday': [
+        { time: '09:00 · 08:00', ccy: 'EUR', name: 'Services PMI (final)', impact: 'Medium', f: '51.2', p: '51.0' },
+        { time: '13:30 · 12:30', ccy: 'USD', name: 'Weekly jobless claims', impact: 'Medium', f: '225K', p: '221K' }
+      ],
+      'Friday': [
+        { time: '13:30 · 12:30', ccy: 'USD', name: 'Non-farm payrolls', impact: 'High', f: '150K', p: '162K' },
+        { time: '13:30 · 12:30', ccy: 'USD', name: 'Unemployment rate', impact: 'High', f: '4.1%', p: '4.1%' },
+        { time: '13:30 · 12:30', ccy: 'CAD', name: 'Employment change', impact: 'High', f: '20K', p: '22K' }
+      ],
+      'Next Monday': [
+        { time: '01:30 · 00:30', ccy: 'AUD', name: 'Retail sales m/m', impact: 'Medium', f: '0.3%', p: '0.5%' },
+        { time: '15:00 · 14:00', ccy: 'USD', name: 'ISM services PMI', impact: 'High', f: '52.4', p: '52.0' }
+      ]
+    };
+    const impStyle = (i) => 'font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 999px; ' + (i === 'High' ? 'color: #1A0D06; background: #FF8A5B;' : 'color: #1A1203; background: #FFB547;');
+    const events = (cal[this.state.day] || [])
+      .filter((e) => this.state.impact === 'All' || e.impact === 'High')
+      .map((e) => ({ ...e, impactStyle: impStyle(e.impact) }));
+
+    return {
+      navGroups: this.navGroups('Markets.dc.html'),
+      windows: ['1H', '4H', '24H'].map((w) => ({ label: w, style: seg(w === this.state.win), pick: () => this.setState({ win: w }) })),
+      strength,
+      days: Object.keys(cal).map((d) => ({ label: d, style: chip(d === this.state.day), pick: () => this.setState({ day: d }) })),
+      impacts: ['All', 'High only'].map((label) => ({ label, style: chip((label === 'All' ? 'All' : 'High') === this.state.impact), pick: () => this.setState({ impact: label === 'All' ? 'All' : 'High' }) })),
+      events,
+      noEvents: events.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — News feed</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}
+.mq-pulse{animation:mq-pulse 1.8s ease-in-out infinite}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease,box-shadow .6s ease}
+.mq-lift:hover{transform:translateY(-3px);border-color:#3A62A8 !important;box-shadow:0 24px 60px rgba(2,8,24,.55)}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 720px;">
+<span class="mq-rise" style="display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;"><span class="mq-pulse" aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #3DDC97;"></span>NEWS FEED</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">What happened, and what it moved.</h1>
+<p style="margin: 0; color: #A3B5D6;">Every market-moving story in a few lines: the event, how markets reacted, and why it matters.</p>
+</div>
+<span style="font-size: 12px; font-weight: 600; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px;">Example stories</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 2; background: #060F22; padding: 8px 0;">
+<div role="group" aria-label="Topic" style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="6">
+<button type="button" onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+</sc-for>
+</div>
+<button type="button" role="switch" aria-checked="{{highChecked}}" onClick="{{toggleHigh}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer;">
+<span style="{{highTrack}}"><span style="{{highKnob}}"></span></span>High impact only
+</button>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{stories}}" as="s" hint-placeholder-count="4">
+<article class="mq-rise mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;">
+<span style="{{s.catStyle}}">{{s.cat}}</span>
+<span style="{{s.statusStyle}}">{{s.status}}</span>
+<sc-if value="{{s.high}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; font-weight: 600; color: #1A0D06; background: #FF8A5B; padding: 2px 9px; border-radius: 999px;">High impact</span></sc-if>
+<span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">{{s.time}}</span>
+</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px; line-height: 1.25;">{{s.title}}</h2>
+<p style="margin: 0; color: #C9D6EE;">{{s.summary}}</p>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 13px; color: #A3B5D6;">Market reaction</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{s.moves}}" as="m" hint-placeholder-count="3">
+<span style="{{m.style}}"><span style="font-family: 'IBM Plex Mono', monospace;">{{m.asset}}</span><span>{{m.arrow}} {{m.move}}</span></span>
+</sc-for>
+</div>
+</div>
+<div style="background: #102449; border-radius: 12px; padding: 12px 14px; font-size: 15px;"><span style="color: #7DB8FF; font-weight: 600;">Why it matters:</span> {{s.why}}</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
+<button type="button" aria-expanded="{{s.expanded}}" onClick="{{s.toggle}}" style="min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-size: 14px; cursor: pointer;">{{s.toggleLabel}}</button>
+<span style="font-size: 13px; color: #A3B5D6;">{{s.sources}}</span>
+</div>
+<sc-if value="{{s.open}}" hint-placeholder-val="{{false}}">
+<ol class="mq-rise" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid #12264A; padding-top: 14px;">
+<sc-for list="{{s.timeline}}" as="u" hint-placeholder-count="3">
+<li style="display: flex; gap: 14px; font-size: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; flex: none; width: 110px;">{{u.t}}</span><span style="color: #C9D6EE;">{{u.text}}</span></li>
+</sc-for>
+</ol>
+</sc-if>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; color: #A3B5D6;">No stories match these filters.</p></sc-if>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Summaries are generated from multiple sources and checked against prices. They describe what happened; they are not trading advice.</p>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'All', highOnly: false, open: [0] };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const data = [
+      { cat: 'Geopolitics', status: 'Confirmed', high: true, time: 'Today · 08:20 WAT · 07:20 GMT',
+        title: 'Strikes reported near a major Gulf oil shipping route',
+        summary: 'Overnight strikes were reported close to shipping lanes that carry a large share of the world’s oil. Several tankers changed course while officials assessed the damage.',
+        moves: [['GOLD', 1.4], ['OIL', 3.1], ['USD', 0.3], ['US500', -0.8]],
+        why: 'Fear of an oil supply disruption pushed crude higher, and investors moved money into gold as a safe place to wait.',
+        sources: '4 sources · updated 12 min ago',
+        timeline: [['05:40 · 04:40', 'First reports of explosions near the shipping lane.'], ['06:55 · 05:55', 'Two tankers confirmed to have changed course.'], ['08:20 · 07:20', 'Officials confirm the strikes; no damage to tankers reported.']] },
+      { cat: 'Central banks', status: 'Confirmed', high: true, time: 'Today · 19:00 WAT · 18:00 GMT',
+        title: 'Fed holds rates and signals patience',
+        summary: 'The Federal Reserve kept interest rates unchanged, as expected, and said it wants more data before deciding its next move.',
+        moves: [['USD', -0.2], ['GOLD', 0.5], ['US500', 0.4], ['EURUSD', 0.2]],
+        why: 'No surprise on rates, but the patient tone made near-term hikes look less likely, which softened the dollar.',
+        sources: 'Official statement · 6 sources',
+        timeline: [['19:00 · 18:00', 'Decision published: rates unchanged.'], ['19:30 · 18:30', 'Press conference begins; Chair stresses data dependence.'], ['20:15 · 19:15', 'Markets settle with the dollar slightly lower.']] },
+      { cat: 'Economic data', status: 'Confirmed', high: true, time: 'Tuesday · 13:30 WAT · 12:30 GMT',
+        title: 'US inflation comes in hotter than expected',
+        summary: 'Consumer prices rose faster than economists forecast, the second hot reading in a row.',
+        moves: [['USD', 0.6], ['GOLD', -0.9], ['EURUSD', -0.5], ['US500', -0.7]],
+        why: 'Hotter inflation makes interest-rate cuts less likely, which usually lifts the dollar and weighs on gold.',
+        sources: 'BLS official release · confirmed',
+        timeline: [['13:15 · 12:15', 'Heads-up card: forecast and surprise levels.'], ['13:30 · 12:30', 'Number released: above forecast.'], ['14:30 · 13:30', 'One-hour wrap: dollar holds its gains.']] },
+      { cat: 'Commodities', status: 'Confirmed', high: false, time: 'Monday · 16:10 WAT · 15:10 GMT',
+        title: 'Major oil producers agree to extend output cuts',
+        summary: 'A group of large oil-producing countries agreed to keep supply limited for longer than markets expected.',
+        moves: [['OIL', 2.0], ['USDCAD', -0.3], ['GOLD', 0.1]],
+        why: 'Less supply supports oil prices, and oil-linked currencies like the Canadian dollar tend to benefit.',
+        sources: '3 sources',
+        timeline: [['14:00 · 13:00', 'Meeting begins.'], ['16:10 · 15:10', 'Extension announced.']] },
+      { cat: 'Geopolitics', status: 'Developing', high: false, time: 'Monday · 11:45 WAT · 10:45 GMT',
+        title: 'New tariffs announced on a range of imports',
+        summary: 'A new round of import tariffs was announced. Details on timing and exemptions are still coming in.',
+        moves: [['AUDUSD', -0.4], ['US500', -0.5], ['GOLD', 0.6]],
+        why: 'Trade tensions raise worries about global growth, which tends to hurt growth-linked currencies and lift safe havens.',
+        sources: '2 sources · developing',
+        timeline: [['11:45 · 10:45', 'Announcement made; details pending.']] },
+      { cat: 'Crypto', status: 'Confirmed', high: false, time: 'Last Friday · 18:00 WAT · 17:00 GMT',
+        title: 'Bitcoin funds see their strongest week of inflows this month',
+        summary: 'Money flowing into bitcoin investment funds picked up sharply this week.',
+        moves: [['BTC', 2.4], ['ETH', 1.8]],
+        why: 'Steady fund inflows show growing demand from larger investors, which has supported prices.',
+        sources: '2 sources',
+        timeline: [['18:00 · 17:00', 'Weekly flow data published.']] }
+    ];
+    const catColor = { 'Geopolitics': '#FFB547', 'Central banks': '#7DB8FF', 'Economic data': '#3DDC97', 'Commodities': '#FF8A5B', 'Crypto': '#B9A3FF' };
+    const chip = (on) => 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ' + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;');
+    const stories = data
+      .map((d, i) => ({ ...d, i }))
+      .filter((d) => (s.cat === 'All' || d.cat === s.cat) && (!s.highOnly || d.high))
+      .map((d) => {
+        const open = s.open.indexOf(d.i) >= 0;
+        return {
+          ...d,
+          catStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: " + catColor[d.cat] + ';',
+          statusStyle: 'font-size: 12px; padding: 2px 9px; border-radius: 999px; ' + (d.status === 'Developing' ? 'border: 1px solid #FFB547; color: #FFD38A;' : 'border: 1px solid #2E8C66; color: #A9F0CF;'),
+          moves: d.moves.map((m) => ({
+            asset: m[0],
+            arrow: m[1] >= 0 ? '▲' : '▼',
+            move: (m[1] > 0 ? '+' : '') + m[1].toFixed(1) + '%',
+            style: 'display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; font-size: 14px; ' + (m[1] >= 0 ? 'background: rgba(61,220,151,0.12); color: #A9F0CF; border: 1px solid #2E8C66;' : 'background: rgba(255,138,91,0.12); color: #FFC9B5; border: 1px solid #A85A3C;')
+          })),
+          timeline: d.timeline.map((u) => ({ t: u[0], text: u[1] })),
+          open,
+          expanded: open ? 'true' : 'false',
+          toggleLabel: open ? 'Hide updates' : 'See how it developed (' + d.timeline.length + ')',
+          toggle: () => this.setState({ open: open ? s.open.filter((x) => x !== d.i) : s.open.concat(d.i) })
+        };
+      });
+    return {
+      navGroups: this.navGroups('News.dc.html'),
+      filters: ['All', 'Geopolitics', 'Central banks', 'Economic data', 'Commodities', 'Crypto'].map((f) => ({ label: f, style: chip(f === s.cat), pick: () => this.setState({ cat: f }) })),
+      stories,
+      empty: stories.length === 0,
+      highChecked: s.highOnly ? 'true' : 'false',
+      highTrack: 'width: 36px; height: 20px; border-radius: 999px; position: relative; flex: none; transition: background-color .4s ease; background: ' + (s.highOnly ? '#3DDC97' : '#1C3563') + ';',
+      highKnob: 'position: absolute; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #FFFFFF; transition: left .4s cubic-bezier(.16,1,.3,1); left: ' + (s.highOnly ? '18px' : '2px') + ';',
+      toggleHigh: () => this.setState({ highOnly: !s.highOnly })
+    };
+  }
+}
+</script>
+</body>
+</html>

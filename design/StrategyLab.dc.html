@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Strategy Lab</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .9s cubic-bezier(.16,1,.3,1) both}
+.mq-d2{animation-delay:.18s}
+.mq-pulse{animation:mq-pulse 2.4s ease-in-out infinite}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+button,li{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0;">
+<div style="padding: 16px clamp(16px, 3vw, 40px) 0; display: flex; justify-content: flex-end;"><span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 4px 12px; border-radius: 999px;">Preview · coming soon</span></div>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 56px 24px 28px; display: flex; flex-direction: column; gap: 14px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">Strategy Lab</div>
+<h1 class="mq-rise" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(34px, 4.4vw, 52px); line-height: 1.06; letter-spacing: -0.025em; max-width: 860px;">Describe your strategy. We build the robot. You test it first.</h1>
+<p style="margin: 0; font-size: 18px; color: #A3B5D6; max-width: 760px;">Write your rules in plain words. MARKIQ SI shows exactly what it understood, writes the code, and won't unlock a live broker connection until your robot has passed backtesting and a demo period.</p>
+</section>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 0 24px 28px;">
+<ol aria-label="Robot build steps" style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px;">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="5">
+<li style="{{st.style}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em;">{{st.num}} · {{st.status}}</span>
+<span style="font-weight: 600; font-size: 15px;">{{st.label}}</span>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 0 24px 96px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+<section style="flex: 1 1 440px; min-width: 0; background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<label for="strategy-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;">1. Describe your strategy</label>
+<p style="margin: 0; font-size: 14px; color: #A3B5D6;">Include the market, timeframe, entry and exit rules, and how much you risk per trade.</p>
+<textarea id="strategy-text" rows="7" value="{{text}}" onChange="{{onText}}" style="width: 100%; box-sizing: border-box; padding: 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 16px; resize: vertical;"></textarea>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 14px; font-weight: 600;">Build it for</div>
+<div role="group" aria-label="Platform" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{platforms}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button>
+</sc-for>
+</div>
+</div>
+<button type="button" onClick="{{build}}" class="mq-btn" style="min-height: 52px; border-radius: 12px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; font-size: 17px; cursor: pointer;">{{buildLabel}}</button>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Preview: the interpretation shown is a worked example. At launch it is generated from your own description.</p>
+</section>
+
+<section style="flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+<sc-if value="{{notBuilt}}" hint-placeholder-val="{{true}}">
+<div style="border: 1px dashed #2B4A82; border-radius: 16px; padding: 48px 28px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; color: #A3B5D6;">
+<svg width="48" height="48" viewBox="0 0 256 256" fill="#4A9DFF" aria-hidden="true"><path d="M200,50H134V16a6,6,0,0,0-12,0V50H56A30,30,0,0,0,26,80V192a30,30,0,0,0,30,30H200a30,30,0,0,0,30-30V80A30,30,0,0,0,200,50Zm18,142a18,18,0,0,1-18,18H56a18,18,0,0,1-18-18V80A18,18,0,0,1,56,62H200a18,18,0,0,1,18,18ZM74,108a10,10,0,1,1,10,10A10,10,0,0,1,74,108Zm88,0a10,10,0,1,1,10,10A10,10,0,0,1,162,108Zm2,30H92a26,26,0,0,0,0,52h72a26,26,0,0,0,0-52Zm-22,12v28H114V150ZM78,164a14,14,0,0,1,14-14h10v28H92A14,14,0,0,1,78,164Zm86,14H154V150h10a14,14,0,0,1,0,28Z"></path></svg>
+<span class="mq-pulse" aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #7DB8FF;">AWAITING YOUR STRATEGY</span>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; color: #EAF1FF;">Your robot's rules will appear here</div>
+<div style="font-size: 15px; max-width: 420px;">Describe your strategy and press Build. You'll see every rule MARKIQ SI understood before any code is used.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{built}}" hint-placeholder-val="{{false}}">
+<div class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">2. Review what MARKIQ SI understood</h2>
+<div role="tablist" aria-label="View" style="display: flex; gap: 4px; background: #060F22; border-radius: 10px; padding: 4px;">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{showRules}}" hint-placeholder-val="{{true}}">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="6">
+<div class="mq-rise" style="background: #102449; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 12px; color: #A3B5D6; letter-spacing: 0.04em;">{{r.k}}</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px;">{{r.v}}</span>
+</div>
+</sc-for>
+</div>
+<div style="border: 1px solid #5A4417; background: rgba(255,181,71,0.08); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-weight: 600; color: #FFD38A;">Please confirm — your description didn't say:</div>
+<div style="font-size: 14px; color: #E8D9BC;">• Should the robot also take sell trades? Currently: buy only.</div>
+<div style="font-size: 14px; color: #E8D9BC;">• Close early if the EMAs cross back down? Currently: no, stop or target only.</div>
+<div style="font-size: 14px; color: #E8D9BC;">• Maximum trades open at once? Currently: one.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{showCode}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 13px; color: #A3B5D6;">{{codeCaption}}</div>
+<pre style="margin: 0; background: #040B19; border: 1px solid #1C3563; border-radius: 12px; padding: 16px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.6; color: #C9D6EE; white-space: pre;">{{code}}</pre>
+</div>
+</sc-if>
+</div>
+
+<div class="mq-rise mq-d2" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">3–5. Test before you trust it</h2>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 14px 16px; border: 1px solid #1C3563; border-radius: 12px;">
+<div><div style="font-weight: 600;">Backtest on years of history</div><div style="font-size: 14px; color: #A3B5D6;">Trades, win rate, drawdown and an equity curve — never projected profits.</div></div>
+<button type="button" onClick="{{runBacktest}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: #1F6FE5; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer;">Run backtest</button>
+</div>
+<sc-if value="{{backtestNote}}" hint-placeholder-val="{{false}}">
+<div style="font-size: 14px; color: #B9C9E6; background: #102449; border-radius: 10px; padding: 12px 14px;">Backtesting opens when Strategy Lab launches. Results will show real trades on historical data, including the losing ones.</div>
+</sc-if>
+<div style="padding: 14px 16px; border: 1px solid #1C3563; border-radius: 12px;"><div style="font-weight: 600;">Out-of-sample check</div><div style="font-size: 14px; color: #A3B5D6;">Tests the robot on data it was not built on, to catch strategies that only fit the past.</div></div>
+<div style="padding: 14px 16px; border: 1px solid #1C3563; border-radius: 12px;"><div style="font-weight: 600;">Demo account period</div><div style="font-size: 14px; color: #A3B5D6;">Runs on a free demo account in live market conditions before any real money is involved.</div></div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; border: 1px solid #16294F; border-radius: 12px; color: #7F93B8;">
+<div style="display: flex; gap: 10px; align-items: center;">
+<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="flex: none;"><path d="M208,82H174V56a46,46,0,0,0-92,0V82H48A14,14,0,0,0,34,96V208a14,14,0,0,0,14,14H208a14,14,0,0,0,14-14V96A14,14,0,0,0,208,82ZM94,56a34,34,0,0,1,68,0V82H94ZM210,208a2,2,0,0,1-2,2H48a2,2,0,0,1-2-2V96a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2Z"></path></svg>
+<div><div style="font-weight: 600;">Connect your broker</div><div style="font-size: 14px;">Unlocks after backtest, out-of-sample check and demo period are complete.</div></div>
+</div>
+<button type="button" disabled="{{true}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #16294F; background: transparent; color: #7F93B8; font: inherit; font-weight: 600; cursor: not-allowed;">Locked</button>
+</div>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Backtested and demo results do not guarantee future results. Automated trading can lose money. You stay in control of every robot.</p>
+</div>
+</sc-if>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'Buy EURUSD on the 1-hour chart when the 20 EMA crosses above the 50 EMA and RSI(14) is above 50. Stop loss 25 pips, take profit 50 pips. Risk 1% of my account per trade. Do not open new trades in the 15 minutes before high-impact news.',
+      platform: 'MT5',
+      built: false,
+      tab: 'Rules',
+      backtestNote: false
+    };
+  }
+
+  mt5Code() {
+    return [
+      '#include <Trade/Trade.mqh>',
+      '',
+      'input int    FastEMA        = 20;',
+      'input int    SlowEMA        = 50;',
+      'input int    RSIPeriod      = 14;',
+      'input double RiskPercent    = 1.0;',
+      'input int    StopLossPips   = 25;',
+      'input int    TakeProfitPips = 50;',
+      '',
+      'CTrade trade;',
+      'int fastH, slowH, rsiH;',
+      '',
+      'int OnInit()',
+      '{',
+      '   fastH = iMA(_Symbol, PERIOD_H1, FastEMA, 0, MODE_EMA, PRICE_CLOSE);',
+      '   slowH = iMA(_Symbol, PERIOD_H1, SlowEMA, 0, MODE_EMA, PRICE_CLOSE);',
+      '   rsiH  = iRSI(_Symbol, PERIOD_H1, RSIPeriod, PRICE_CLOSE);',
+      '   return(INIT_SUCCEEDED);',
+      '}',
+      '',
+      'void OnTick()',
+      '{',
+      '   if(PositionSelect(_Symbol) || NewsBlackout()) return;',
+      '   double f[2], s[2], r[1];',
+      '   if(CopyBuffer(fastH, 0, 1, 2, f) < 2) return;',
+      '   if(CopyBuffer(slowH, 0, 1, 2, s) < 2) return;',
+      '   if(CopyBuffer(rsiH,  0, 1, 1, r) < 1) return;',
+      '',
+      '   bool crossUp = f[0] <= s[0] && f[1] > s[1];',
+      '   if(crossUp && r[0] > 50)',
+      '   {',
+      '      double pip = _Point * ((_Digits == 3 || _Digits == 5) ? 10 : 1);',
+      '      double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);',
+      '      double sl  = ask - StopLossPips * pip;',
+      '      double tp  = ask + TakeProfitPips * pip;',
+      '      trade.Buy(LotsForRisk(StopLossPips * pip), _Symbol, ask, sl, tp);',
+      '   }',
+      '}',
+      '',
+      '// LotsForRisk() and NewsBlackout() are generated in the full file.'
+    ].join('\n');
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    return Object.assign({ navGroups: this.navGroups('StrategyLab.dc.html') }, this.pageVals());
+  }
+
+  pageVals() {
+    const { platform, built, tab, text } = this.state;
+    const hasText = text.trim().length > 0;
+    const stepBase = 'display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 12px; ';
+    const stepDefs = [
+      { num: '01', label: 'Describe', done: hasText },
+      { num: '02', label: 'Review rules', done: built },
+      { num: '03', label: 'Backtest', done: false },
+      { num: '04', label: 'Demo test', done: false },
+      { num: '05', label: 'Connect broker', done: false, locked: true }
+    ];
+    const steps = stepDefs.map((s) => ({
+      num: s.num,
+      label: s.label,
+      status: s.done ? 'Done' : (s.locked ? 'Locked' : 'To do'),
+      style: stepBase + (s.done
+        ? 'background: rgba(61,220,151,0.10); border: 1px solid #2E8C66; color: #A9F0CF;'
+        : (s.locked ? 'background: transparent; border: 1px solid #16294F; color: #7F93B8;' : 'background: #0B1A36; border: 1px solid #1C3563; color: #EAF1FF;'))
+    }));
+
+    const chipBase = 'min-height: 44px; padding: 0 16px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ';
+    const platforms = [
+      { id: 'MT5', label: 'MT5 Expert Advisor' },
+      { id: 'Pine', label: 'TradingView Pine Script' },
+      { id: 'Python', label: 'Python' }
+    ].map((p) => ({
+      label: p.label,
+      pick: () => this.setState({ platform: p.id }),
+      style: chipBase + (p.id === platform
+        ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;'
+        : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;')
+    }));
+
+    const tabBase = 'min-height: 40px; padding: 0 16px; border-radius: 8px; border: none; font: inherit; font-size: 14px; cursor: pointer; ';
+    const tabs = ['Rules', 'Code'].map((label) => ({
+      label,
+      selected: label === tab ? 'true' : 'false',
+      pick: () => this.setState({ tab: label }),
+      style: tabBase + (label === tab ? 'background: #1F6FE5; color: #FFFFFF; font-weight: 600;' : 'background: transparent; color: #A3B5D6;')
+    }));
+
+    const isMt5 = platform === 'MT5';
+    return {
+      text,
+      onText: (e) => this.setState({ text: e.target.value }),
+      steps,
+      platforms,
+      tabs,
+      built,
+      notBuilt: !built,
+      buildLabel: built ? 'Rebuild my robot' : 'Build my robot',
+      build: () => { if (this.state.text.trim()) this.setState({ built: true, tab: 'Rules' }); },
+      showRules: tab === 'Rules',
+      showCode: tab === 'Code',
+      rules: [
+        { k: 'Market', v: 'EURUSD' },
+        { k: 'Timeframe', v: '1 hour (H1)' },
+        { k: 'Entry', v: 'EMA 20 crosses above EMA 50' },
+        { k: 'Confirmation', v: 'RSI(14) above 50' },
+        { k: 'Stop loss / target', v: '25 pips / 50 pips' },
+        { k: 'Risk per trade', v: '1% of account balance' },
+        { k: 'News filter', v: 'No new trades 15 min before high-impact news' },
+        { k: 'Direction', v: 'Buy only (please confirm)' }
+      ],
+      codeCaption: isMt5 ? 'MQL5 Expert Advisor · excerpt' : 'Export for this platform arrives after launch. Showing the MT5 version for now.',
+      code: this.mt5Code(),
+      backtestNote: this.state.backtestNote,
+      runBacktest: () => this.setState({ backtestNote: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

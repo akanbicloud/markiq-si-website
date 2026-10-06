@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+@keyframes mq-rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes mq-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes mq-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes mq-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise 1s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}.mq-d2{animation-delay:.2s}.mq-d3{animation-delay:.3s}.mq-d4{animation-delay:.45s}
+.mq-float{animation:mq-float 8s ease-in-out infinite}
+.mq-grow{transform-origin:left center;animation:mq-grow 1.6s .7s cubic-bezier(.16,1,.3,1) both}
+.mq-marquee{animation:mq-marquee 48s linear infinite}
+.mq-pulse{animation:mq-pulse 2.4s ease-in-out infinite}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease,box-shadow .6s ease}
+.mq-lift:hover{transform:translateY(-6px);border-color:#3A62A8 !important;box-shadow:0 30px 70px rgba(2,8,24,.65)}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+@supports (animation-timeline: view()){
+.mq-reveal{animation:mq-rise linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55;">
+
+<header style="border-bottom: 1px solid #16294F; background: #060F22;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 36px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 7px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 6px 26px; flex: 1 1 auto; font-size: 15px;">
+<a href="Main.dc.html" style="color: #EAF1FF; text-decoration: none;">Intelligence</a>
+<a href="LiveDesk.dc.html" style="color: #A3B5D6; text-decoration: none;">Live Desk</a>
+<a href="Academy.dc.html" style="color: #A3B5D6; text-decoration: none;">Academy</a>
+<a href="Lesson.dc.html" style="color: #A3B5D6; text-decoration: none;">AI Tutor</a>
+<a href="StrategyLab.dc.html" style="color: #A3B5D6; text-decoration: none;">Strategy Lab</a>
+<a href="ChartLab.dc.html" style="color: #A3B5D6; text-decoration: none;">Chart Lab</a>
+<a href="Journal.dc.html" style="color: #A3B5D6; text-decoration: none;">Journal</a>
+</nav>
+<a href="Onboarding.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #2B4A82; color: #EAF1FF; text-decoration: none; font-size: 15px;">Log in</a>
+<a href="#access" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 10px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none; font-size: 15px;">Get early access</a>
+</div>
+</header>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 88px 24px 80px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center;">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+<div class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">Market Intelligence · Super Intelligence</div>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(40px, 5.2vw, 66px); line-height: 1.03; letter-spacing: -0.025em; font-weight: 700;">Know what moves the market. Learn to trade it.</h1>
+<p class="mq-rise mq-d2" style="margin: 0; font-size: 19px; color: #A3B5D6; max-width: 560px;">MARKIQ SI watches economic releases, central banks and world news, explains every move in plain words, and teaches you to build your own trading tools — from your first lesson to your first robot.</p>
+<div class="mq-rise mq-d3" style="display: flex; flex-wrap: wrap; gap: 12px;">
+<a href="#access" class="mq-btn" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 12px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none; font-size: 17px;">Get early access</a>
+<a href="Academy.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 12px; border: 1px solid #2B4A82; color: #EAF1FF; font-weight: 500; text-decoration: none; font-size: 17px;">Explore the Academy</a>
+</div>
+<div class="mq-rise mq-d4" style="display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 14px; color: #A3B5D6;">
+<span style="display: inline-flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #FFB547;"></span>Private beta on Telegram</span>
+<span style="display: inline-flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #FFB547;"></span>Beginner to advanced</span>
+<span style="display: inline-flex; align-items: center; gap: 10px;"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #FFB547;"></span>Times in WAT and GMT</span>
+</div>
+</div>
+
+<div class="mq-rise mq-d2" style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; position: relative;">
+<div aria-hidden="true" style="position: absolute; inset: 6% 4% 10%; border-radius: 50%; background: radial-gradient(closest-side, rgba(74,157,255,0.28), rgba(74,157,255,0) 70%); filter: blur(10px);"></div>
+<div class="mq-float" style="position: relative; width: 100%; max-width: 340px; background: #02060F; border: 1px solid #2B4A82; border-radius: 46px; padding: 12px; box-shadow: 0 40px 90px rgba(0,0,0,0.6), inset 0 0 0 2px #0B1A36;">
+<div role="img" aria-label="Example: MARKIQ SI alerts arriving in Telegram on a phone" style="background: #0A1630; border-radius: 36px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 24px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #C9D6EE;"><span>13:30</span><span aria-hidden="true" style="width: 84px; height: 22px; border-radius: 999px; background: #02060F;"></span><span>5G</span></div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 16px 12px; border-bottom: 1px solid #16294F; background: #0D1D3D;">
+<span style="width: 36px; height: 36px; border-radius: 50%; background: #1F6FE5; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; color: #FFFFFF;">MQ</span>
+<div style="display: flex; flex-direction: column; line-height: 1.25;"><span style="font-weight: 600; font-size: 15px;">MARKIQ SI</span><span style="font-size: 12px; color: #7F93B8;">channel · example</span></div>
+</div>
+<div style="padding: 14px 12px 18px; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(180deg, #0A1630, #08122A);">
+<div style="align-self: center; font-size: 11px; color: #A3B5D6; background: #12264A; padding: 2px 10px; border-radius: 999px;">Today</div>
+<div style="background: #12264A; border-radius: 14px 14px 14px 4px; padding: 10px 12px; font-size: 13px; display: flex; flex-direction: column; gap: 3px; max-width: 88%;">
+<span style="font-weight: 600;">In 15 min: US CPI (y/y)</span>
+<span style="color: #B9C9E6;">Forecast 3.1%. Hotter usually lifts the dollar.</span>
+<span style="align-self: flex-end; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #7F93B8;">13:15 WAT · 12:15 GMT</span>
+</div>
+<div style="background: #12264A; border-radius: 14px 14px 14px 4px; padding: 12px; display: flex; flex-direction: column; gap: 9px; border-left: 3px solid #FF8A5B;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;"><span style="font-weight: 600; font-size: 14px;">US CPI · Released</span><span style="font-size: 10px; font-weight: 600; color: #1A0D06; background: #FF8A5B; padding: 1px 8px; border-radius: 999px;">High impact</span></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-family: 'IBM Plex Mono', monospace;">
+<div style="background: #0B1A36; border-radius: 8px; padding: 6px 8px;"><div style="font-size: 10px; color: #A3B5D6;">Actual</div><div style="font-size: 16px;">3.4%</div></div>
+<div style="background: #0B1A36; border-radius: 8px; padding: 6px 8px;"><div style="font-size: 10px; color: #A3B5D6;">Forecast</div><div style="font-size: 16px;">3.1%</div></div>
+<div style="background: #0B1A36; border-radius: 8px; padding: 6px 8px;"><div style="font-size: 10px; color: #A3B5D6;">Previous</div><div style="font-size: 16px;">3.3%</div></div>
+</div>
+<div style="font-size: 12px;">Large surprise · <span style="color: #FF8A5B;">Hotter than expected</span></div>
+<div class="mq-grow" style="display: flex; gap: 3px;" aria-label="Surprise level 7 of 10"><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #FF8A5B;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #1C3563;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #1C3563;"></span><span style="flex: 1; height: 6px; border-radius: 2px; background: #1C3563;"></span></div>
+<div style="font-size: 12px; color: #C9D6EE;"><span style="color: #7DB8FF; font-weight: 600;">Simply:</span> prices rose faster than expected, so the dollar got stronger.</div>
+<div style="display: flex; gap: 6px;"><span style="flex: 1; text-align: center; font-size: 11px; color: #7DB8FF; border: 1px solid #2B4A82; border-radius: 8px; padding: 5px 0;">What is CPI?</span><span style="flex: 1; text-align: center; font-size: 11px; color: #7DB8FF; border: 1px solid #2B4A82; border-radius: 8px; padding: 5px 0;">Read more</span></div>
+<span style="align-self: flex-end; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #7F93B8;">13:30 WAT · 12:30 GMT</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mq-rise mq-d4" style="position: relative; display: flex; align-items: center; gap: 10px; background: #0B1A36; border: 1px solid #2B4A82; border-radius: 12px; padding: 10px 14px; font-size: 13px; box-shadow: 0 16px 40px rgba(0,0,0,0.45);">
+<span aria-hidden="true" class="mq-pulse" style="width: 8px; height: 8px; border-radius: 50%; background: #3DDC97;"></span>
+<span><span style="color: #3DDC97; font-weight: 600;">USD</span> moved to 1st in currency strength · 15 min after</span>
+</div>
+<div style="position: relative; font-size: 12px; color: #7F93B8; text-align: center;">Illustrative example. Live cards use official data and label their sources.</div>
+</div>
+</section>
+
+<div aria-hidden="true" style="border-top: 1px solid #16294F; overflow: hidden; padding: 22px 0;">
+<div class="mq-marquee" style="display: flex; width: max-content; font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 500; letter-spacing: 0.02em; color: #4E6FA8; white-space: nowrap;">
+<sc-for list="{{marquee}}" as="m" hint-placeholder-count="20">
+<span style="padding-right: 48px;">{{m}}</span>
+</sc-for>
+</div>
+</div>
+
+<section id="tools" style="background: #081530; border-top: 1px solid #16294F; border-bottom: 1px solid #16294F;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 88px 24px; display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">The platform</div>
+<h2 class="mq-reveal" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;">Everything you need to understand, learn and build.</h2>
+</div>
+<div class="mq-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M238,128a6,6,0,0,1-6,6H203.71l-38.34,76.68A6,6,0,0,1,160,214h-.3a6,6,0,0,1-5.31-3.85L95.51,55.57,61.46,130.48A6,6,0,0,1,56,134H24a6,6,0,0,1,0-12H52.14l38.4-84.48a6,6,0,0,1,11.07.34L160.74,193.1l33.89-67.78A6,6,0,0,1,200,122h32A6,6,0,0,1,238,128Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #04140C; background: #3DDC97; padding: 3px 10px; border-radius: 999px;">Private beta</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Live Intelligence</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">A card before and after every major release, rate decision and market-moving headline. One card per event, updated as it develops — no spam.</p>
+<a href="#access" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Join the Telegram beta →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M250.82,90.71l-120-64a5.94,5.94,0,0,0-5.64,0l-120,64a6,6,0,0,0,0,10.58L34,116.67v49.62a14,14,0,0,0,3.55,9.320C50.42,189.94,79.29,214,128,214a127.21,127.21,0,0,0,50-9.73V240a6,6,0,0,0,12,0V198.35a113.18,113.18,0,0,0,28.45-22.75,13.91,13.91,0,0,0,3.550-9.31V116.67l28.82-15.38a6,6,0,0,0,0-10.58ZM128,202c-44,0-70-21.56-81.52-34.41a2,2,0,0,1-.48-1.3V123.07l79.18,42.22a6,6,0,0,0,5.64,0L178,140.13v51C165,197.35,148.45,202,128,202Zm82-35.71a2,2,0,0,1-.48,1.3A100.25,100.25,0,0,1,190,184.3V133.73l20-10.66Zm-22.15-45a6.27,6.27,0,0,0-1-.71l-56-29.86a6,6,0,0,0-5.64,10.58L175.25,128,128,153.2,20.75,96,128,38.8,235.25,96Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Academy</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Fundamentals, technical analysis and trading automation, step by step. Every lesson ends with a quiz that tells you when you're ready to move on.</p>
+<a href="Academy.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">See the courses →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M166,112a6,6,0,0,1-6,6H96a6,6,0,0,1,0-12h64A6,6,0,0,1,166,112Zm-6,26H96a6,6,0,0,0,0,12h64a6,6,0,0,0,0-12Zm70-10A102,102,0,0,1,79.31,217.65L44.44,229.27a14,14,0,0,1-17.71-17.71l11.62-34.87A102,102,0,1,1,230,128Zm-12,0A90,90,0,1,0,50.08,173.060a6,6,0,0,1,.5,4.91L38.12,215.35a2,2,0,0,0,2.53,2.53L78,205.42a6.2,6.2,0,0,1,1.9-.31,6.09,6.09,0,0,1,3,.81A90,90,0,0,0,218,128Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">AI Tutor</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Ask anything about what you've learned, any time. Answers are tied to your lessons and explained at your level.</p>
+<a href="Lesson.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Try a sample lesson →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M200,50H134V16a6,6,0,0,0-12,0V50H56A30,30,0,0,0,26,80V192a30,30,0,0,0,30,30H200a30,30,0,0,0,30-30V80A30,30,0,0,0,200,50Zm18,142a18,18,0,0,1-18,18H56a18,18,0,0,1-18-18V80A18,18,0,0,1,56,62H200a18,18,0,0,1,18,18ZM74,108a10,10,0,1,1,10,10A10,10,0,0,1,74,108Zm88,0a10,10,0,1,1,10,10A10,10,0,0,1,162,108Zm2,30H92a26,26,0,0,0,0,52h72a26,26,0,0,0,0-52Zm-22,12v28H114V150ZM78,164a14,14,0,0,1,14-14h10v28H92A14,14,0,0,1,78,164Zm86,14H154V150h10a14,14,0,0,1,0,28Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Strategy Lab</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Describe your strategy in plain words. MARKIQ SI turns it into a trading robot you can backtest and demo-test before going near a live account.</p>
+<a href="StrategyLab.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">See how it works →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M230,208a6,6,0,0,1-6,6H32a6,6,0,0,1-6-6V48a6,6,0,0,1,12,0V161.52l53.76-53.76a6,6,0,0,1,8.48,0L128,135.51,185.52,78H160a6,6,0,0,1,0-12h40a6,6,0,0,1,6,6v40a6,6,0,0,1-12,0V86.48l-61.76,61.76a6,6,0,0,1-8.48,0L96,120.49l-58,58V202H224A6,6,0,0,1,230,208Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Chart Lab</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Charts for currencies, gold, oil, indices and crypto. Replay the past bar by bar, mark it up, and test your ideas on history.</p>
+<a href="ChartLab.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Open Chart Lab →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M182,112a6,6,0,0,1-6,6H96a6,6,0,0,1,0-12h80A6,6,0,0,1,182,112Zm-6,26H96a6,6,0,0,0,0,12h80a6,6,0,0,0,0-12Zm54-74V184a22,22,0,0,1-22,22H32a22,22,0,0,1-22-21.91V88a6,6,0,0,1,12,0v96a10,10,0,0,0,20,0V64A14,14,0,0,1,56,50H216A14,14,0,0,1,230,64Zm-12,0a2,2,0,0,0-2-2H56a2,2,0,0,0-2,2V184a21.84,21.84,0,0,1-2.41,10H208a10,10,0,0,0,10-10Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">News Feed</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Wars, central banks, data and oil shocks, each summed up in a few lines with how gold, the dollar and other markets reacted.</p>
+<a href="News.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Read the feed →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M128,90a38,38,0,1,0,38,38A38,38,0,0,0,128,90Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,154Zm78-26a77.74,77.74,0,0,1-19.86,52,6,6,0,0,1-8.94-8,65.93,65.93,0,0,0,0-88,6,6,0,1,1,8.94-8A77.74,77.74,0,0,1,206,128ZM67.18,102.31A65.93,65.93,0,0,0,78.8,172a6,6,0,0,1-.47,8.47,6,6,0,0,1-8.47-.47,77.93,77.93,0,0,1,0-104,6,6,0,1,1,8.94,8A66.21,66.21,0,0,0,67.18,102.31ZM246,128a117.71,117.71,0,0,1-33.71,82.58,6,6,0,0,1-8.58-8.4,105.88,105.88,0,0,0,0-148.36,6,6,0,0,1,8.58-8.4A117.71,117.71,0,0,1,246,128ZM52.29,202.18a6,6,0,0,1-8.58,8.4,117.92,117.92,0,0,1,0-165.16,6,6,0,1,1,8.58,8.4,105.88,105.88,0,0,0,0,148.36Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Live Desk</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Watch Fed and central bank broadcasts live, with a running summary and the event card updating beside the stream.</p>
+<a href="LiveDesk.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Open the Live Desk →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M205.65,74.08A109.26,109.26,0,0,0,128,42h-.39C67.17,42.21,18,92.06,18,153.13V176a14,14,0,0,0,14,14H224a14,14,0,0,0,14-14V152A109.3,109.3,0,0,0,205.65,74.08ZM226,176a2,2,0,0,1-2,2H115.78l57.07-78.47a6,6,0,0,0-9.7-7.060L100.94,178H32a2,2,0,0,1-2-2V153.13A102.36,102.36,0,0,1,30.62,142H56a6,6,0,0,0,0-12H32.71C42.6,88.4,78.53,56.86,122,54.19V80a6,6,0,0,0,12,0V54.19A98.05,98.05,0,0,1,223.53,130H200a6,6,0,0,0,0,12h25.5c.33,3.3.5,6.64.5,10Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Market Dashboard</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Currency strength, the economic calendar in your local time, and the latest event cards on one screen.</p>
+<a href="Markets.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">See the dashboard →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M224,202H214V40a6,6,0,0,0-6-6H152a6,6,0,0,0-6,6V82H96a6,6,0,0,0-6,6v42H48a6,6,0,0,0-6,6v66H32a6,6,0,0,0,0,12H224a6,6,0,0,0,0-12ZM158,46h44V202H158ZM102,94h44V202H102ZM54,142H90v60H54Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Reaction Explorer</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">See what usually happened to any market after CPI, jobs reports and rate decisions, split by hotter and cooler surprises.</p>
+<a href="Explorer.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Explore history →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M182,112a6,6,0,0,1-6,6H112a6,6,0,0,1,0-12h64A6,6,0,0,1,182,112Zm-6,26H112a6,6,0,0,0,0,12h64a6,6,0,0,0,0-12Zm46-90V208a14,14,0,0,1-14,14H48a14,14,0,0,1-14-14V48A14,14,0,0,1,48,34H208A14,14,0,0,1,222,48ZM48,210H74V46H48a2,2,0,0,0-2,2V208A2,2,0,0,0,48,210ZM210,48a2,2,0,0,0-2-2H86V210H208a2,2,0,0,0,2-2Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Trading Journal</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Log every trade, see your P&amp;L calendar, and let your own numbers show which setups and habits work.</p>
+<a href="Journal.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Open the journal →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M208,42H48A14,14,0,0,0,34,56v56c0,51.94,25.12,83.4,46.2,100.64,22.73,18.6,45.27,24.890,46.22,25.15a6,6,0,0,0,3.16,0c.95-.26,23.49-6.55,46.22-25.15C196.88,195.4,222,163.94,222,112V56A14,14,0,0,0,208,42Zm2,70c0,37.76-13.94,68.39-41.44,91.06A131.17,131.17,0,0,1,128,225.72a130.94,130.94,0,0,1-40.56-22.66C59.94,180.39,46,149.76,46,112V56a2,2,0,0,1,2-2H208a2,2,0,0,1,2,2ZM172.24,99.76a6,6,0,0,1,0,8.48l-56,56a6,6,0,0,1-8.48,0l-24-24a6,6,0,0,1,8.48-8.48L112,151.51l51.76-51.75A6,6,0,0,1,172.24,99.76Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Risk &amp; Prop Tools</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Size every position correctly and track prop-firm daily-loss and drawdown limits before they end your challenge.</p>
+<a href="Tools.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Try the calculator →</a>
+</div>
+
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="#7DB8FF" aria-hidden="true"><path d="M243.6,148.8a6,6,0,0,1-8.4-1.2A53.58,53.58,0,0,0,192,126a6,6,0,0,1,0-12,26,26,0,1,0-25.18-32.5,6,6,0,0,1-11.62-3,38,38,0,1,1,59.91,39.63A65.69,65.69,0,0,1,244.8,140.4,6,6,0,0,1,243.6,148.8ZM189.19,213a6,6,0,0,1-2.19,8.2,5.9,5.9,0,0,1-3,.81,6,6,0,0,1-5.2-3,59,59,0,0,0-101.62,0,6,6,0,1,1-10.38-6A70.1,70.1,0,0,1,103,182.55a46,46,0,1,1,50.1,0A70.1,70.1,0,0,1,189.19,213ZM128,178a34,34,0,1,0-34-34A34,34,0,0,0,128,178ZM70,120a6,6,0,0,0-6-6A26,26,0,1,1,89.18,81.49a6,6,0,1,0,11.62-3,38,38,0,1,0-59.91,39.63A65.69,65.69,0,0,0,11.2,140.4a6,6,0,1,0,9.6,7.2A53.58,53.58,0,0,1,64,126,6,6,0,0,0,70,120Z"></path></svg>
+<span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 10px; border-radius: 999px;">Coming soon</span>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Community</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Lesson discussions and study groups with other learners and mentors. No signals, no paid calls, just learning.</p>
+<a href="Community.dc.html" style="margin-top: auto; font-weight: 600; text-decoration: none; font-size: 15px;">Join the community →</a>
+</div>
+
+</div>
+</div>
+</section>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 44px;">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">How an event card works</div>
+<h2 class="mq-reveal" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;">Before, during and after — in one card.</h2>
+<p style="margin: 0; color: #A3B5D6; font-size: 18px;">Instead of a flood of messages, each big release gets one card that updates itself as the story unfolds.</p>
+</div>
+<div class="mq-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+<div style="border-top: 2px solid #4A9DFF; padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; font-size: 14px;">15 min before</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">The heads-up</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Forecast, previous figure, and what would count as a surprise — so you're ready, not rushed.</p>
+</div>
+<div style="border-top: 2px solid #4A9DFF; padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; font-size: 14px;">At release</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">The number lands</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Actual versus forecast, the surprise level, and which way it went — confirmed by the official source.</p>
+</div>
+<div style="border-top: 2px solid #4A9DFF; padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; font-size: 14px;">15 and 60 min after</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">The reaction</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Currency strength before and after, and how the markets that matter actually moved.</p>
+</div>
+<div style="border-top: 2px solid #FFB547; padding-top: 20px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #FFB547; font-size: 14px;">Context</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">The history</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">What usually happened after similar releases, with honest sample sizes — never a buy or sell call.</p>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="sessions-h" style="max-width: 1240px; margin: 0 auto; padding: 96px 24px; display: flex; flex-direction: column; gap: 32px;">
+<div class="mq-reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 640px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">TRADING SESSIONS · LIVE</span>
+<h2 id="sessions-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;">The market never sleeps. Here's when it moves, in your time.</h2>
+<p style="margin: 0; color: #A3B5D6; font-size: 17px;">Sydney, Tokyo, London and New York, shown in WAT and adjusted automatically when clocks change.</p>
+</div>
+<div style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 14px 18px; display: flex; flex-direction: column; gap: 2px;">
+<span style="font-size: 13px; color: #A3B5D6;">Now</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px;">{{nowWat}} WAT</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7F93B8;">{{nowGmt}} GMT</span>
+</div>
+</div>
+<div class="mq-reveal" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; gap: 14px; align-items: center;">
+<span style="flex: 0 0 112px;"></span>
+<div style="flex: 1; position: relative; height: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7F93B8;">
+<sc-for list="{{ticks}}" as="t" hint-placeholder-count="5"><span style="{{t.style}}">{{t.label}}</span></sc-for>
+</div>
+<span style="flex: 0 0 64px;"></span>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 12px;">
+<sc-for list="{{sessions}}" as="r" hint-placeholder-count="4">
+<div style="display: flex; gap: 14px; align-items: center;">
+<div style="flex: 0 0 112px; display: flex; flex-direction: column; line-height: 1.25;"><span style="font-weight: 600;">{{r.city}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7F93B8;">{{r.hours}}</span></div>
+<div style="flex: 1; position: relative; height: 30px; background: #081530; border-radius: 8px; overflow: hidden;">
+<sc-for list="{{r.segs}}" as="g" hint-placeholder-count="1"><span class="mq-grow" style="{{g}}"></span></sc-for>
+<span style="{{nowLine}}"></span>
+</div>
+<span style="{{r.badge}}">{{r.status}}</span>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 24px; padding-top: 8px; border-top: 1px solid #16294F; font-size: 14px; color: #B9C9E6;">
+<span style="display: inline-flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 2px; background: #FFB547;"></span>{{overlap}}</span>
+<span style="display: inline-flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 2px; height: 14px; background: #EAF1FF;"></span>The white line is now</span>
+</div>
+</div>
+</section>
+
+<section style="background: #081530; border-top: 1px solid #16294F; border-bottom: 1px solid #16294F;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; gap: 48px;">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">MARKIQ SI Academy</div>
+<h2 class="mq-reveal" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;">Learn the market. Then automate it.</h2>
+<p style="margin: 0; color: #A3B5D6; font-size: 18px;">Video lessons, written exercises and quizzes that check your understanding before you move on. Score 80% or more to advance — or get told exactly which section to review.</p>
+<a href="Academy.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 1px solid #2B4A82; color: #EAF1FF; font-weight: 500; text-decoration: none;">Browse all courses</a>
+</div>
+<div style="flex: 2 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7DB8FF; letter-spacing: 0.08em;">TRACK 1</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Fundamentals</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 14px;">The economic calendar, inflation and jobs data, central banks, geopolitics, and trading the news safely.</p>
+</div>
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7DB8FF; letter-spacing: 0.08em;">TRACK 2</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Technicals</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 14px;">Candlesticks, market structure, indicators that matter, building a trading plan, and risk management.</p>
+</div>
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 10px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #FFB547; letter-spacing: 0.08em;">TRACK 3</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Automation</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 14px;">Build Expert Advisors, custom indicators and multi-market scanners, and backtest them the right way.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1240px; margin: 0 auto; padding: 96px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #7DB8FF;">Strategy Lab</div>
+<h2 class="mq-reveal" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em;">Describe your strategy. Get a robot you can test.</h2>
+<p style="margin: 0; color: #A3B5D6; font-size: 18px;">Write your rules the way you'd explain them to a friend. MARKIQ SI turns them into a trading robot, shows you exactly what it understood, and walks you through testing it properly.</p>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px;">
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; width: 24px;">01</span>Describe your idea in plain words</div>
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; width: 24px;">02</span>Review the rules MARKIQ SI understood</div>
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; width: 24px;">03</span>Backtest it on years of history</div>
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; width: 24px;">04</span>Run it on a demo account</div>
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-family: 'IBM Plex Mono', monospace; color: #FFB547; width: 24px;">05</span>Only then, connect your broker</div>
+</div>
+<a href="StrategyLab.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; background: #1F6FE5; color: #FFFFFF; font-weight: 600; text-decoration: none;">Open Strategy Lab</a>
+</div>
+<div class="mq-reveal" style="flex: 1 1 420px; min-width: 0; background: #0B1A36; border: 1px solid #1C3563; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="font-size: 13px; color: #A3B5D6;">Your strategy</div>
+<div style="background: #102449; border-radius: 12px; padding: 16px; font-size: 15px;">Buy EURUSD on the 1-hour chart when the 20 EMA crosses above the 50 EMA and RSI is above 50. Stop 25 pips, target 50 pips. Risk 1% per trade.</div>
+<div style="font-size: 13px; color: #A3B5D6;">What MARKIQ SI understood</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 13px;">
+<span style="border: 1px solid #2B4A82; border-radius: 8px; padding: 6px 10px;">EURUSD · H1</span>
+<span style="border: 1px solid #2B4A82; border-radius: 8px; padding: 6px 10px;">EMA 20 ↗ EMA 50</span>
+<span style="border: 1px solid #2B4A82; border-radius: 8px; padding: 6px 10px;">RSI(14) &gt; 50</span>
+<span style="border: 1px solid #2B4A82; border-radius: 8px; padding: 6px 10px;">SL 25 · TP 50</span>
+<span style="border: 1px solid #2B4A82; border-radius: 8px; padding: 6px 10px;">Risk 1%</span>
+</div>
+<div style="font-size: 13px; color: #7F93B8; border-top: 1px solid #1C3563; padding-top: 14px;">Backtested and past results never guarantee future results. Live connection unlocks only after testing.</div>
+</div>
+</section>
+
+<section style="background: #081530; border-top: 1px solid #16294F; border-bottom: 1px solid #16294F;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 88px 24px; display: flex; flex-direction: column; gap: 36px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 36px; line-height: 1.15; letter-spacing: -0.02em; max-width: 760px;">Built on three promises.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">Data first, AI second</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Numbers come from official sources and are checked by code. The AI only explains them — it never invents them.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">Describes, never advises</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">We show what happened, why, and what history says. What you trade is always your decision.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 21px;">Honest by default</h3>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Small samples, delayed data and missing prices are always labeled — never hidden behind a confident number.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="founder-h" style="max-width: 1240px; margin: 0 auto; padding: 96px 24px 0;">
+<div class="mq-reveal" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+<div style="flex: 0 1 300px; min-width: 0; margin: 0 auto;">
+<div style="position: relative; border-radius: 22px; padding: 1px; background: linear-gradient(160deg, #4A9DFF, #1C3563 45%, #FFB547);">
+<img src="founder.jpg" alt="Oloyede Naheem Pelumi, founder of MARKIQ SI" width="800" height="1000" style="display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 21px;">
+<span style="position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; background: rgba(6,15,34,0.82); border: 1px solid #2B4A82; border-radius: 999px; padding: 5px 12px; font-size: 12px; color: #EAF1FF; backdrop-filter: blur(6px);"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #3DDC97;"></span>Founder · MARKIQ SI</span>
+</div>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">WHO'S BEHIND MARKIQ SI</span>
+<h2 id="founder-h" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em;">Built by a trader, for traders.</h2>
+<p style="margin: 0; color: #C9D6EE; font-size: 18px; line-height: 1.6;">I've been trading since 2021. Through CPI shocks, rate decisions and surprise headlines, the price usually moved long before anyone explained why.</p>
+<p style="margin: 0; color: #A3B5D6; font-size: 17px; line-height: 1.6;">I hold a BSc in Computer Science and work as an AI and machine learning engineer, so I built the tool I wanted: official data checked by code, explained in plain words, with the education and tools to help you understand the market yourself, not just follow someone else's calls.</p>
+<div role="list" aria-label="Background" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">AI &amp; machine learning</span>
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">Deep learning</span>
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">Computer vision</span>
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">Data analytics</span>
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">Python</span>
+<span role="listitem" style="font-size: 13px; color: #C9D6EE; border: 1px solid #2B4A82; border-radius: 999px; padding: 4px 12px;">Cybersecurity</span>
+</div>
+<div style="display: flex; flex-direction: column; line-height: 1.3; padding-top: 4px;"><span style="font-weight: 600; font-size: 18px; font-family: 'Space Grotesk', sans-serif;">Oloyede Naheem Pelumi</span><span style="font-size: 14px; color: #7F93B8;">Founder, MARKIQ SI · AI &amp; Machine Learning Engineer</span></div>
+</div>
+</div>
+</section>
+
+<section id="access" style="max-width: 1240px; margin: 0 auto; padding: 96px 24px;">
+<div class="mq-reveal" style="background: #0D2350; border: 1px solid #2B4A82; border-radius: 22px; padding: 48px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em;">Be first in.</h2>
+<p style="margin: 0; color: #B9C9E6; font-size: 17px;">Join the waitlist for the Academy, AI Tutor, Strategy Lab and Chart Lab. We'll email you once, when your access is ready.</p>
+</div>
+<form style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+<label for="waitlist-email" style="font-size: 14px; color: #B9C9E6;">Email address</label>
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<input id="waitlist-email" type="email" placeholder="you@example.com" style="flex: 1 1 220px; min-width: 0; min-height: 52px; padding: 0 16px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 16px;">
+<button type="button" class="mq-btn" style="min-height: 52px; padding: 0 24px; border-radius: 12px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">Join the waitlist</button>
+</div>
+<a href="#" style="font-size: 15px; font-weight: 600; text-decoration: none;">Or join the Telegram channel →</a>
+</form>
+</div>
+</section>
+
+<footer style="border-top: 1px solid #16294F; background: #050C1C;">
+<div style="max-width: 1240px; margin: 0 auto; padding: 48px 24px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+<span style="font-size: 14px; color: #7F93B8; margin-left: 8px;">Market Intelligence · Super Intelligence</span>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px;">
+<a href="Academy.dc.html" style="color: #A3B5D6; text-decoration: none;">Academy</a>
+<a href="StrategyLab.dc.html" style="color: #A3B5D6; text-decoration: none;">Strategy Lab</a>
+<a href="ChartLab.dc.html" style="color: #A3B5D6; text-decoration: none;">Chart Lab</a>
+<a href="#" style="color: #A3B5D6; text-decoration: none;">Terms</a>
+<a href="#" style="color: #A3B5D6; text-decoration: none;">Privacy</a>
+<a href="#" style="color: #A3B5D6; text-decoration: none;">Contact</a>
+</nav>
+</div>
+<p style="margin: 0; font-size: 13px; color: #7F93B8; max-width: 900px;">Risk warning: trading currencies, commodities, indices, stocks and crypto, especially with leverage, carries a high risk of loss and may not be suitable for everyone. MARKIQ SI provides market information and education, not investment advice. Past and backtested performance does not guarantee future results.</p>
+<p style="margin: 0; font-size: 13px; color: #7F93B8;">© 2026 MARKIQ SI. All rights reserved.</p>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { now: Date.now() };
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 30000);
+  }
+
+  tzOffset(tz, now) {
+    const parts = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      .formatToParts(new Date(now)).forEach((p) => { parts[p.type] = p.value; });
+    const asUtc = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour % 24, +parts.minute);
+    return Math.round((asUtc - now) / 900000) / 4;
+  }
+
+  sessionVals() {
+    const now = this.state.now;
+    const d = new Date(now);
+    const gmtH = d.getUTCHours() + d.getUTCMinutes() / 60;
+    const watH = (gmtH + 1) % 24;
+    const pad = (n) => String(n).padStart(2, '0');
+    const hm = (h) => { const x = ((h % 24) + 24) % 24; return pad(Math.floor(x)) + ':' + pad(Math.round((x % 1) * 60) % 60); };
+    const defs = [
+      { city: 'Sydney', tz: 'Australia/Sydney', open: 7, close: 16 },
+      { city: 'Tokyo', tz: 'Asia/Tokyo', open: 9, close: 18 },
+      { city: 'London', tz: 'Europe/London', open: 8, close: 17 },
+      { city: 'New York', tz: 'America/New_York', open: 8, close: 17 }
+    ];
+    const seg = (a, b, color) => 'position: absolute; top: 5px; bottom: 5px; border-radius: 5px; left: ' + (a / 24 * 100) + '%; width: ' + ((b - a) / 24 * 100) + '%; background: ' + color + ';';
+    const spans = {};
+    const rows = defs.map((s) => {
+      const off = this.tzOffset(s.tz, now);
+      const start = (((s.open - off + 1) % 24) + 24) % 24;
+      const end = start + (s.close - s.open);
+      spans[s.city] = [start, end];
+      const isOpen = (watH >= start && watH < end) || (end > 24 && watH < end - 24);
+      const color = s.city === 'London' || s.city === 'New York' ? 'linear-gradient(90deg, #1F6FE5, #4A9DFF)' : 'linear-gradient(90deg, #173C78, #2B5FAE)';
+      const segs = end <= 24 ? [seg(start, end, color)] : [seg(start, 24, color), seg(0, end - 24, color)];
+      return {
+        city: s.city,
+        hours: hm(start) + '–' + hm(end) + ' WAT',
+        segs,
+        status: isOpen ? 'Open' : 'Closed',
+        badge: 'flex: 0 0 64px; text-align: center; font-size: 12px; font-weight: 600; padding: 3px 0; border-radius: 999px; ' + (isOpen ? 'background: #3DDC97; color: #04130C;' : 'color: #7F93B8; border: 1px solid #2B4A82;')
+      };
+    });
+    const watDay = new Date(now + 3600000).getUTCDay();
+    const syd = spans['Sydney'][0], nyEnd = spans['New York'][1];
+    const weekend = watDay === 6 || (watDay === 0 && watH < syd) || (watDay === 5 && watH >= nyEnd);
+    if (weekend) rows.forEach((r) => { r.status = 'Closed'; r.badge = r.badge.replace('background: #3DDC97; color: #04130C;', 'color: #7F93B8; border: 1px solid #2B4A82;'); });
+    const L = spans['London'], N = spans['New York'];
+    const oa = Math.max(L[0], N[0]), ob = Math.min(L[1], N[1]);
+    rows.forEach((r) => { if (r.city === 'London' || r.city === 'New York') r.segs.push('position: absolute; top: 5px; bottom: 5px; border-radius: 5px; left: ' + (oa / 24 * 100) + '%; width: ' + ((ob - oa) / 24 * 100) + '%; background: #FFB547; opacity: .9;'); });
+    return {
+      nowWat: hm(watH), nowGmt: hm(gmtH),
+      nowLine: 'position: absolute; top: 0; bottom: 0; width: 2px; background: #EAF1FF; box-shadow: 0 0 10px rgba(234,241,255,.7); left: calc(' + (watH / 24 * 100) + '% - 1px);',
+      sessions: rows,
+      ticks: [0, 6, 12, 18, 24].map((h) => ({ label: pad(h % 24 === 0 && h ? 24 : h) + ':00', style: 'position: absolute; top: 0; left: ' + (h / 24 * 100) + '%; transform: translateX(' + (h === 0 ? '0' : h === 24 ? '-100%' : '-50%') + ');' })),
+      overlap: weekend ? 'Weekend: markets are closed. They reopen Sunday at ' + hm(syd) + ' WAT with Sydney.' : ob > oa ? 'Busiest window: London and New York overlap, ' + hm(oa) + '–' + hm(ob) + ' WAT (' + hm(oa - 1) + '–' + hm(ob - 1) + ' GMT)' : 'London and New York do not overlap today'
+    };
+  }
+
+  renderVals() {
+    const words = ['Rate decisions', '·', 'Inflation', '·', 'Payrolls', '·', 'GDP', '·', 'Geopolitics', '·', 'Gold', '·', 'Oil', '·', 'Indices', '·', 'Currencies', '·', 'Crypto', '·'];
+    return Object.assign({ marquee: words.concat(words) }, this.sessionVals());
+  }
+}
+</script>
+</body>
+</html>

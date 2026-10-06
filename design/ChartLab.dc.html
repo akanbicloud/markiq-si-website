@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Chart Lab</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+button{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0;">
+<div style="padding: 16px clamp(16px, 3vw, 40px) 0; display: flex; justify-content: flex-end;"><span style="font-size: 12px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 4px 12px; border-radius: 999px;">Preview · coming soon</span></div>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 28px 24px 72px; display: flex; flex-direction: column; gap: 18px;">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; letter-spacing: -0.02em;">Chart Lab</h1>
+<p style="margin: 0; color: #A3B5D6; font-size: 15px;">Replay the market bar by bar, mark it up, and test your strategy on history.</p>
+</div>
+<span style="font-size: 13px; font-weight: 600; color: #1A1203; background: #FFB547; padding: 4px 12px; border-radius: 999px;">Sample data — not live prices</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center;">
+<div role="group" aria-label="Market" style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{assets}}" as="a" hint-placeholder-count="7">
+<button type="button" onClick="{{a.pick}}" style="{{a.style}}">{{a.label}}</button>
+</sc-for>
+</div>
+<div role="group" aria-label="Timeframe" style="display: flex; gap: 6px;">
+<sc-for list="{{timeframes}}" as="t" hint-placeholder-count="4">
+<button type="button" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+
+<section aria-label="Chart" style="flex: 999 1 680px; min-width: 0; background: #081530; border: 1px solid #1C3563; border-radius: 16px; overflow: hidden;">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #1C3563; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">
+<span style="color: #EAF1FF; font-weight: 500;">{{title}}</span>
+<span>{{ohlc}}</span>
+</div>
+<div style="display: flex;">
+<div role="toolbar" aria-label="Drawing tools" style="flex: none; width: 56px; border-right: 1px solid #1C3563; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0;">
+<sc-for list="{{tools}}" as="tl" hint-placeholder-count="6">
+<button type="button" onClick="{{tl.pick}}" aria-label="{{tl.label}}" title="{{tl.label}}" style="{{tl.style}}">
+<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="{{tl.icon}}"></path></svg>
+</button>
+</sc-for>
+</div>
+<div style="flex: 1; min-width: 0; display: flex;">
+<div style="flex: 1; min-width: 0; position: relative; height: 440px;">
+<sc-for list="{{gridLines}}" as="g" hint-placeholder-count="5">
+<div style="{{g.style}}"></div>
+</sc-for>
+<sc-for list="{{candles}}" as="c" hint-placeholder-count="40">
+<div style="{{c.wrap}}">
+<div style="{{c.wick}}"></div>
+<div style="{{c.body}}"></div>
+</div>
+</sc-for>
+<div style="{{lastLineStyle}}"></div>
+</div>
+<div style="flex: none; width: 84px; position: relative; height: 440px; border-left: 1px solid #1C3563; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A3B5D6;">
+<sc-for list="{{axisLabels}}" as="l" hint-placeholder-count="5">
+<span style="{{l.style}}">{{l.text}}</span>
+</sc-for>
+<span style="{{lastLabelStyle}}">{{lastLabel}}</span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid #1C3563;">
+<div role="group" aria-label="Replay controls" style="display: flex; gap: 8px;">
+<button type="button" onClick="{{reset}}" aria-label="Restart replay" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M222,128a94,94,0,0,1-92.74,94H128a93.43,93.43,0,0,1-64.5-25.65,6,6,0,1,1,8.24-8.72A82,82,0,1,0,70,70l-.19.19L39.44,98H72a6,6,0,0,1,0,12H24a6,6,0,0,1-6-6V56a6,6,0,0,1,12,0V90.34L61.63,61.4A94,94,0,0,1,222,128Z"></path></svg></button>
+<button type="button" onClick="{{back}}" aria-label="Previous bar" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M164.24,203.76a6,6,0,1,1-8.48,8.48l-80-80a6,6,0,0,1,0-8.48l80-80a6,6,0,0,1,8.48,8.48L88.49,128Z"></path></svg></button>
+<button type="button" onClick="{{togglePlay}}" class="mq-btn" aria-label="{{playLabel}}" style="min-width: 96px; height: 44px; padding: 0 16px; border-radius: 10px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; cursor: pointer;">{{playLabel}}</button>
+<button type="button" onClick="{{forward}}" aria-label="Next bar" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M180.24,132.24l-80,80a6,6,0,0,1-8.48-8.48L167.51,128,91.76,52.24a6,6,0,0,1,8.48-8.48l80,80A6,6,0,0,1,180.24,132.24Z"></path></svg></button>
+</div>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">Replay · bar {{visible}} of {{total}} · {{toolName}} selected</span>
+</div>
+</section>
+
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Notes on this chart</h2>
+<label for="note-input" style="font-size: 13px; color: #A3B5D6;">What do you see at bar {{visible}}?</label>
+<textarea id="note-input" rows="3" value="{{noteDraft}}" onChange="{{onNote}}" placeholder="e.g. Price rejected the previous high" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px; resize: vertical;"></textarea>
+<button type="button" onClick="{{addNote}}" style="min-height: 44px; border-radius: 10px; border: 1px solid #2B4A82; background: #102449; color: #EAF1FF; font: inherit; font-weight: 600; cursor: pointer;">Add note</button>
+<sc-if value="{{hasNotes}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<sc-for list="{{notes}}" as="n" hint-placeholder-count="2">
+<div style="font-size: 14px; background: #102449; border-radius: 10px; padding: 10px 12px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF;">{{n.where}}</span> {{n.text}}</div>
+</sc-for>
+</div>
+</sc-if>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Backtest a strategy</h2>
+<label for="bt-strategy" style="font-size: 13px; color: #A3B5D6;">Strategy</label>
+<select id="bt-strategy" style="min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 15px;">
+<option>EMA crossover (from Strategy Lab)</option>
+<option>Previous-day high breakout</option>
+<option>My custom strategy</option>
+</select>
+<button type="button" onClick="{{runBacktest}}" style="min-height: 44px; border-radius: 10px; border: none; background: #1F6FE5; color: #FFFFFF; font: inherit; font-weight: 600; cursor: pointer;">Run backtest</button>
+<sc-if value="{{backtestNote}}" hint-placeholder-val="{{false}}">
+<div style="font-size: 14px; color: #B9C9E6; background: #102449; border-radius: 10px; padding: 12px;">Backtesting opens at launch. You'll see every trade on the chart, plus win rate, drawdown and an equity curve — results on history, never promises.</div>
+</sc-if>
+</section>
+
+<section style="border: 1px solid #1C3563; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 16px;">At launch</h2>
+<p style="margin: 0; font-size: 14px; color: #A3B5D6;">Real historical data for currency pairs (majors and exotics), gold, silver, oil, indices, stocks and crypto, with economic releases marked on the chart.</p>
+</section>
+</aside>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { asset: 'EURUSD', tf: 'H1', visible: 60, playing: false, tool: 'Crosshair', noteDraft: '', notes: [], backtestNote: false };
+    this.timer = null;
+  }
+
+  componentWillUnmount() {
+    if (this.timer) clearInterval(this.timer);
+  }
+
+  assetDefs() {
+    return [
+      { id: 'EURUSD', base: 1.085, vol: 0.0011, dp: 5 },
+      { id: 'GBPUSD', base: 1.27, vol: 0.0014, dp: 5 },
+      { id: 'USDJPY', base: 149.5, vol: 0.17, dp: 3 },
+      { id: 'USDZAR', base: 18.2, vol: 0.05, dp: 4 },
+      { id: 'XAUUSD', base: 4150, vol: 6.5, dp: 2 },
+      { id: 'USOIL', base: 90.2, vol: 0.4, dp: 2 },
+      { id: 'US500', base: 5700, vol: 8.5, dp: 1 },
+      { id: 'BTCUSD', base: 85000, vol: 520, dp: 0 }
+    ];
+  }
+
+  series(def, tf) {
+    const N = 90;
+    let seed = 0;
+    const key = def.id + tf;
+    for (let i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) % 233280;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const out = [];
+    let close = def.base;
+    for (let i = 0; i < N; i++) {
+      const open = close;
+      const drift = Math.sin(i / 11) * def.vol * 0.35;
+      close = open + (rnd() - 0.5) * def.vol * 2.2 + drift;
+      const high = Math.max(open, close) + rnd() * def.vol * 0.7;
+      const low = Math.min(open, close) - rnd() * def.vol * 0.7;
+      out.push({ open, high, low, close });
+    }
+    return out;
+  }
+
+  stopTimer() {
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    return Object.assign({ navGroups: this.navGroups('ChartLab.dc.html') }, this.pageVals());
+  }
+
+  pageVals() {
+    const defs = this.assetDefs();
+    const def = defs.find((d) => d.id === this.state.asset) || defs[0];
+    const data = this.series(def, this.state.tf);
+    const N = data.length;
+    const visible = Math.min(this.state.visible, N);
+    const H = 440, pad = 24;
+    let max = -Infinity, min = Infinity;
+    data.forEach((c) => { if (c.high > max) max = c.high; if (c.low < min) min = c.low; });
+    const y = (p) => pad + ((max - p) / (max - min)) * (H - pad * 2);
+    const fmt = (p) => p.toFixed(def.dp);
+    const w = 100 / N;
+
+    const candles = data.slice(0, visible).map((c, i) => {
+      const up = c.close >= c.open;
+      const color = up ? '#3DDC97' : '#FF8A5B';
+      const top = y(Math.max(c.open, c.close));
+      const bh = Math.max(1, Math.abs(y(c.open) - y(c.close)));
+      return {
+        wrap: 'position: absolute; top: 0; bottom: 0; left: ' + (i * w) + '%; width: ' + w + '%;',
+        wick: 'position: absolute; left: 50%; width: 1px; top: ' + y(c.high) + 'px; height: ' + Math.max(1, y(c.low) - y(c.high)) + 'px; background: ' + color + ';',
+        body: 'position: absolute; left: 18%; width: 64%; top: ' + top + 'px; height: ' + bh + 'px; background: ' + color + '; border-radius: 1px;'
+      };
+    });
+
+    const levels = [0, 1, 2, 3, 4].map((k) => max - ((max - min) * k) / 4);
+    const gridLines = levels.map((p) => ({ style: 'position: absolute; left: 0; right: 0; height: 1px; background: #12264A; top: ' + y(p) + 'px;' }));
+    const axisLabels = levels.map((p) => ({ text: fmt(p), style: 'position: absolute; left: 8px; transform: translateY(-50%); top: ' + y(p) + 'px;' }));
+
+    const last = data[visible - 1];
+    const lastUp = last.close >= last.open;
+    const lastColor = lastUp ? '#3DDC97' : '#FF8A5B';
+
+    const chipBase = 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ';
+    const chip = (on) => chipBase + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;');
+
+    const toolDefs = [
+      { label: 'Crosshair', icon: 'M232,122H221.8A94.13,94.13,0,0,0,134,34.2V24a6,6,0,0,0-12,0V34.2A94.13,94.13,0,0,0,34.2,122H24a6,6,0,0,0,0,12H34.2A94.13,94.13,0,0,0,122,221.8V232a6,6,0,0,0,12,0V221.8A94.13,94.13,0,0,0,221.8,134H232a6,6,0,0,0,0-12Zm-98,87.76V200a6,6,0,0,0-12,0v9.76A82.09,82.09,0,0,1,46.24,134H56a6,6,0,0,0,0-12H46.24A82.09,82.09,0,0,1,122,46.24V56a6,6,0,0,0,12,0V46.24A82.09,82.09,0,0,1,209.76,122H200a6,6,0,0,0,0,12h9.76A82.09,82.09,0,0,1,134,209.76ZM128,90a38,38,0,1,0,38,38A38,38,0,0,0,128,90Zm0,64a26,26,0,1,1,26-26A26,26,0,0,1,128,154Z' },
+      { label: 'Trend line', icon: 'M213.23,42.77A30,30,0,0,0,167,80.54L80.54,167a30.07,30.07,0,0,0-37.77,3.81h0A30,30,0,1,0,89,175.46L175.46,89a30,30,0,0,0,37.77-46.25Zm-136.51,162a18,18,0,1,1,0-25.46A18,18,0,0,1,76.72,204.74Zm128-128a18,18,0,0,1-25.46,0h0a18,18,0,1,1,25.46,0Z' },
+      { label: 'Horizontal line', icon: 'M222,128a6,6,0,0,1-6,6H40a6,6,0,0,1,0-12H216A6,6,0,0,1,222,128Z' },
+      { label: 'Rectangle', icon: 'M216,42H40A14,14,0,0,0,26,56V200a14,14,0,0,0,14,14H216a14,14,0,0,0,14-14V56A14,14,0,0,0,216,42Zm2,158a2,2,0,0,1-2,2H40a2,2,0,0,1-2-2V56a2,2,0,0,1,2-2H216a2,2,0,0,1,2,2Z' },
+      { label: 'Text note', icon: 'M206,56V88a6,6,0,0,1-12,0V62H134V194h26a6,6,0,0,1,0,12H96a6,6,0,0,1,0-12h26V62H62V88a6,6,0,0,1-12,0V56a6,6,0,0,1,6-6H200A6,6,0,0,1,206,56Z' },
+      { label: 'Measure', icon: 'M233.91,74.79,181.22,22.1a14,14,0,0,0-19.8,0L22.09,161.41a14,14,0,0,0,0,19.8L74.78,233.9a14,14,0,0,0,19.8,0L233.91,94.59A14,14,0,0,0,233.91,74.79ZM225.42,86.1,86.1,225.41h0a2,2,0,0,1-2.83,0L30.58,172.73a2,2,0,0,1,0-2.83L64,136.48l27.76,27.76a6,6,0,1,0,8.48-8.48L72.48,128,96,104.48l27.76,27.76a6,6,0,0,0,8.48-8.48L104.48,96,128,72.49l27.76,27.75a6,6,0,0,0,8.48-8.48L136.49,64,169.9,30.59a2,2,0,0,1,2.83,0l52.69,52.68A2,2,0,0,1,225.42,86.1Z' }
+    ];
+    const tools = toolDefs.map((t) => ({
+      ...t,
+      pick: () => this.setState({ tool: t.label }),
+      style: 'width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid ' +
+        (t.label === this.state.tool ? '#4A9DFF; background: #102449; color: #EAF1FF;' : 'transparent; background: transparent; color: #A3B5D6;')
+    }));
+
+    const setVisible = (v) => this.setState({ visible: Math.max(10, Math.min(N, v)) });
+
+    return {
+      assets: defs.map((d) => ({ label: d.id, style: chip(d.id === def.id), pick: () => { this.stopTimer(); this.setState({ asset: d.id, visible: 60, playing: false }); } })),
+      timeframes: ['M15', 'H1', 'H4', 'D1'].map((tf) => ({ label: tf, style: chip(tf === this.state.tf), pick: () => { this.stopTimer(); this.setState({ tf, visible: 60, playing: false }); } })),
+      title: def.id + ' · ' + this.state.tf + ' · SAMPLE',
+      ohlc: 'O ' + fmt(last.open) + '  H ' + fmt(last.high) + '  L ' + fmt(last.low) + '  C ' + fmt(last.close),
+      tools,
+      toolName: this.state.tool,
+      candles,
+      gridLines,
+      axisLabels,
+      lastLineStyle: 'transition: top .35s cubic-bezier(.16,1,.3,1); position: absolute; left: 0; right: 0; height: 0; border-top: 1px dashed ' + lastColor + '; top: ' + y(last.close) + 'px;',
+      lastLabel: fmt(last.close),
+      lastLabelStyle: 'transition: top .35s cubic-bezier(.16,1,.3,1), background-color .35s ease; position: absolute; left: 4px; right: 4px; transform: translateY(-50%); padding: 2px 4px; border-radius: 4px; text-align: center; color: #04101F; font-weight: 500; background: ' + lastColor + '; top: ' + y(last.close) + 'px;',
+      visible,
+      total: N,
+      playLabel: this.state.playing ? 'Pause' : 'Play',
+      togglePlay: () => {
+        if (this.state.playing) { this.stopTimer(); this.setState({ playing: false }); return; }
+        if (this.state.visible >= N) this.setState({ visible: 20 });
+        this.setState({ playing: true });
+        this.timer = setInterval(() => {
+          if (this.state.visible >= N) { this.stopTimer(); this.setState({ playing: false }); return; }
+          this.setState({ visible: this.state.visible + 1 });
+        }, 350);
+      },
+      back: () => setVisible(this.state.visible - 1),
+      forward: () => setVisible(this.state.visible + 1),
+      reset: () => { this.stopTimer(); this.setState({ visible: 20, playing: false }); },
+      noteDraft: this.state.noteDraft,
+      onNote: (e) => this.setState({ noteDraft: e.target.value }),
+      addNote: () => {
+        const t = this.state.noteDraft.trim();
+        if (!t) return;
+        this.setState({ noteDraft: '', notes: [{ where: def.id + ' · bar ' + visible, text: t }, ...this.state.notes] });
+      },
+      notes: this.state.notes,
+      hasNotes: this.state.notes.length > 0,
+      backtestNote: this.state.backtestNote,
+      runBacktest: () => this.setState({ backtestNote: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Risk and prop tools</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}
+.mq-bar{transition:width .7s cubic-bezier(.16,1,.3,1),background-color .4s ease}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">RISK AND PROP TOOLS</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">Size every trade. Protect every account.</h1>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start;">
+
+<section aria-label="Position size calculator" style="flex: 1 1 420px; min-width: 0; background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Position size calculator</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="rc-bal" style="font-size: 13px; color: #A3B5D6;">Account balance (USD)</label><input id="rc-bal" type="number" value="{{r.bal}}" onChange="{{r.setBal}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="rc-risk" style="font-size: 13px; color: #A3B5D6;">Risk per trade (%)</label><input id="rc-risk" type="number" step="0.1" value="{{r.risk}}" onChange="{{r.setRisk}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="rc-pair" style="font-size: 13px; color: #A3B5D6;">Market</label>
+<select id="rc-pair" value="{{r.pair}}" onChange="{{r.setPair}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<option>EURUSD</option><option>GBPUSD</option><option>AUDUSD</option><option>USDJPY</option><option>USDCAD</option><option>USDCHF</option><option>XAUUSD</option>
+</select></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="rc-sl" style="font-size: 13px; color: #A3B5D6;">Stop loss (pips)</label><input id="rc-sl" type="number" value="{{r.sl}}" onChange="{{r.setSl}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<sc-if value="{{r.needsPrice}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 4px; grid-column: 1 / -1;"><label for="rc-price" style="font-size: 13px; color: #A3B5D6;">Current price (needed for this pair)</label><input id="rc-price" type="number" step="0.0001" value="{{r.price}}" onChange="{{r.setPrice}}" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+</sc-if>
+</div>
+<div style="background: #102449; border-radius: 14px; padding: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+<div><div style="font-size: 13px; color: #A3B5D6;">Position size</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 30px; color: #FFB547;">{{r.lots}}</div><div style="font-size: 13px; color: #A3B5D6;">{{r.units}}</div></div>
+<div><div style="font-size: 13px; color: #A3B5D6;">Money at risk</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 30px;">{{r.riskAmt}}</div><div style="font-size: 13px; color: #A3B5D6;">{{r.pipVal}}</div></div>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Rounded down to 0.01 lots so you never risk more than planned. Assumes a USD account; your broker's contract sizes may differ. Gold uses $0.10 as one pip.</p>
+</section>
+
+<section aria-label="Prop-firm tracker" style="flex: 1 1 420px; min-width: 0; background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Prop-firm tracker</h2>
+<span style="{{p.statusStyle}}">{{p.status}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-start" style="font-size: 12px; color: #A3B5D6;">Starting balance</label><input id="pf-start" type="number" value="{{p.start}}" onChange="{{p.setStart}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-day" style="font-size: 12px; color: #A3B5D6;">Today's opening balance</label><input id="pf-day" type="number" value="{{p.day}}" onChange="{{p.setDay}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-eq" style="font-size: 12px; color: #A3B5D6;">Current equity</label><input id="pf-eq" type="number" value="{{p.eq}}" onChange="{{p.setEq}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-dl" style="font-size: 12px; color: #A3B5D6;">Daily loss limit %</label><input id="pf-dl" type="number" value="{{p.dl}}" onChange="{{p.setDl}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-md" style="font-size: 12px; color: #A3B5D6;">Max drawdown %</label><input id="pf-md" type="number" value="{{p.md}}" onChange="{{p.setMd}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><label for="pf-pt" style="font-size: 12px; color: #A3B5D6;">Profit target %</label><input id="pf-pt" type="number" value="{{p.pt}}" onChange="{{p.setPt}}" style="min-height: 44px; padding: 0 8px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; min-width: 0;"></div>
+</div>
+<sc-for list="{{p.meters}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; gap: 10px; font-size: 14px;"><span>{{m.label}}</span><span style="font-family: 'IBM Plex Mono', monospace; color: #C9D6EE;">{{m.value}}</span></div>
+<div style="height: 10px; background: #081530; border-radius: 5px; overflow: hidden;"><div class="mq-bar" style="{{m.barStyle}}"></div></div>
+</div>
+</sc-for>
+<p style="margin: 0; font-size: 14px; color: #C9D6EE;">{{p.advice}}</p>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Rules vary by firm; check your firm's exact definitions. At launch this links to your Journal and updates automatically.</p>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bal: '1000', risk: '1', pair: 'EURUSD', sl: '25', price: '149.50',
+      start: '10000', day: '10150', eq: '9980', dl: '5', md: '10', pt: '8'
+    };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    const s = this.state;
+    const set = (k) => (e) => this.setState({ [k]: e.target.value });
+    const num = (v) => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+    const money = (v) => '$' + v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    const pair = s.pair;
+    const defaults = { USDJPY: '149.50', USDCAD: '1.3600', USDCHF: '0.8600' };
+    const needsPrice = pair === 'USDJPY' || pair === 'USDCAD' || pair === 'USDCHF';
+    const price = num(s.price);
+    let pipVal = 10;
+    if (pair === 'USDJPY') pipVal = price > 0 ? 1000 / price : 0;
+    else if (pair === 'USDCAD' || pair === 'USDCHF') pipVal = price > 0 ? 10 / price : 0;
+    const riskAmt = num(s.bal) * num(s.risk) / 100;
+    const sl = num(s.sl);
+    const rawLots = sl > 0 && pipVal > 0 ? riskAmt / (sl * pipVal) : 0;
+    const lots = Math.floor(rawLots * 100) / 100;
+    const actualRisk = lots * sl * pipVal;
+    const isGold = pair === 'XAUUSD';
+
+    const start = num(s.start), day = num(s.day), eq = num(s.eq);
+    const dlAmt = start * num(s.dl) / 100;
+    const mdAmt = start * num(s.md) / 100;
+    const target = start * (1 + num(s.pt) / 100);
+    const dailyRoom = eq - (day - dlAmt);
+    const ddRoom = eq - (start - mdAmt);
+    const progress = target > start ? Math.max(0, Math.min(1, (eq - start) / (target - start))) : 0;
+    const dailyFrac = dlAmt > 0 ? Math.max(0, Math.min(1, dailyRoom / dlAmt)) : 0;
+    const ddFrac = mdAmt > 0 ? Math.max(0, Math.min(1, ddRoom / mdAmt)) : 0;
+    const breached = dailyRoom <= 0 || ddRoom <= 0;
+    const caution = !breached && (dailyFrac < 0.3 || ddFrac < 0.3);
+    const roomColor = (f) => (f <= 0 ? '#FF8A5B' : (f < 0.3 ? '#FFB547' : '#3DDC97'));
+    const bar = (f, c) => 'height: 10px; border-radius: 5px; background: ' + c + '; width: ' + (f * 100) + '%;';
+
+    return {
+      navGroups: this.navGroups('Tools.dc.html'),
+      r: {
+        bal: s.bal, risk: s.risk, pair, sl: s.sl, price: s.price, needsPrice,
+        setBal: set('bal'), setRisk: set('risk'), setSl: set('sl'), setPrice: set('price'),
+        setPair: (e) => { const p = e.target.value; this.setState({ pair: p, price: defaults[p] || this.state.price }); },
+        lots: lots.toFixed(2) + ' lots',
+        units: isGold ? (lots * 100).toFixed(0) + ' oz of gold' : (lots * 100000).toLocaleString() + ' units',
+        riskAmt: money(actualRisk),
+        pipVal: 'Pip value ' + money(pipVal) + ' per lot'
+      },
+      p: {
+        start: s.start, day: s.day, eq: s.eq, dl: s.dl, md: s.md, pt: s.pt,
+        setStart: set('start'), setDay: set('day'), setEq: set('eq'), setDl: set('dl'), setMd: set('md'), setPt: set('pt'),
+        status: breached ? 'Rule breached' : (caution ? 'Caution' : 'Safe'),
+        statusStyle: 'font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; ' + (breached ? 'background: #FF8A5B; color: #1A0D06;' : (caution ? 'background: #FFB547; color: #1A1203;' : 'background: #3DDC97; color: #04140C;')),
+        meters: [
+          { label: 'Daily loss room left', value: money(Math.max(0, dailyRoom)) + ' of ' + money(dlAmt), barStyle: bar(dailyFrac, roomColor(dailyFrac)) },
+          { label: 'Max drawdown room left', value: money(Math.max(0, ddRoom)) + ' of ' + money(mdAmt), barStyle: bar(ddFrac, roomColor(ddFrac)) },
+          { label: 'Progress to profit target', value: Math.round(progress * 100) + '% · target ' + money(target), barStyle: bar(progress, '#4A9DFF') }
+        ],
+        advice: breached
+          ? 'A limit has been hit. Most firms end the challenge at this point. Stop trading and review in your Journal.'
+          : (caution
+            ? 'You are close to a limit. Consider smaller positions or stopping for the day.'
+            : 'You are inside your limits. Keep risk per trade small relative to your daily room.')
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

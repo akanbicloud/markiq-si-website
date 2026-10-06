@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Sign up</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+button{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-direction: column;">
+
+<header style="max-width: 1240px; width: 100%; box-sizing: border-box; margin: 0 auto; padding: 22px 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 7px; border-radius: 4px;">SI</span>
+</a>
+<button type="button" onClick="{{toggleMode}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-size: 15px; cursor: pointer;">{{switchLabel}}</button>
+</header>
+
+<main style="flex: 1; display: flex; justify-content: center; padding: 24px 16px 80px;">
+<div style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 22px;">
+
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{false}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; letter-spacing: -0.02em;">Welcome back</h1>
+<label for="li-email" style="font-size: 14px; color: #A3B5D6;">Email</label>
+<input id="li-email" type="email" placeholder="you@example.com" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<label for="li-pass" style="font-size: 14px; color: #A3B5D6;">Password</label>
+<input id="li-pass" type="password" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<a href="Dashboard.dc.html" class="mq-btn" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 12px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none; font-size: 16px;">Log in</a>
+<button type="button" style="min-height: 48px; border-radius: 12px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; cursor: pointer;">Continue with Google</button>
+<a href="#" style="font-size: 14px; text-decoration: none;">Forgot your password?</a>
+</section>
+</sc-if>
+
+<sc-if value="{{isSignup}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;"><span>{{stepLabel}}</span><span>{{stepName}}</span></div>
+<div style="height: 6px; background: #102449; border-radius: 3px;"><div style="{{progressStyle}}"></div></div>
+</div>
+
+<sc-if value="{{s0}}" hint-placeholder-val="{{true}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; letter-spacing: -0.02em;">Create your account</h1>
+<p style="margin: 0; color: #A3B5D6;">Free during the preview. No card needed.</p>
+<label for="su-name" style="font-size: 14px; color: #A3B5D6;">First name</label>
+<input id="su-name" type="text" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<label for="su-email" style="font-size: 14px; color: #A3B5D6;">Email</label>
+<input id="su-email" type="email" placeholder="you@example.com" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<label for="su-pass" style="font-size: 14px; color: #A3B5D6;">Password</label>
+<input id="su-pass" type="password" style="min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<button type="button" onClick="{{next}}" class="mq-btn" style="min-height: 52px; border-radius: 12px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">Create account</button>
+<button type="button" onClick="{{next}}" style="min-height: 48px; border-radius: 12px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; cursor: pointer;">Continue with Google</button>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">By continuing you agree to the Terms and Privacy Policy. MARKIQ SI is education and market information, not investment advice.</p>
+</section>
+</sc-if>
+
+<sc-if value="{{s1}}" hint-placeholder-val="{{false}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; letter-spacing: -0.02em;">How much trading experience do you have?</h1>
+<p style="margin: 0; color: #A3B5D6;">This sets where you start in the Academy. You can change it later.</p>
+<div role="radiogroup" aria-label="Experience" style="display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{levels}}" as="l" hint-placeholder-count="3">
+<button type="button" role="radio" aria-checked="{{l.checked}}" onClick="{{l.pick}}" style="{{l.style}}">
+<span style="font-weight: 600;">{{l.title}}</span>
+<span style="font-size: 14px; color: #A3B5D6;">{{l.desc}}</span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{s2}}" hint-placeholder-val="{{false}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; letter-spacing: -0.02em;">Where are you trading from?</h1>
+<p style="margin: 0; color: #A3B5D6;">Every time on MARKIQ SI is shown in your local time and GMT.</p>
+<label for="ob-country" style="font-size: 14px; color: #A3B5D6;">Country and timezone</label>
+<select id="ob-country" value="{{country}}" onChange="{{setCountry}}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+<sc-for list="{{countries}}" as="c" hint-placeholder-count="6">
+<option value="{{c.id}}">{{c.label}}</option>
+</sc-for>
+</select>
+<div style="background: #102449; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 13px; color: #A3B5D6;">Example: a US jobs report at 08:30 New York time shows as</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px;">{{timePreview}}</span>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{s3}}" hint-placeholder-val="{{false}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; letter-spacing: -0.02em;">What do you want from MARKIQ SI?</h1>
+<p style="margin: 0; color: #A3B5D6;">Pick as many as you like.</p>
+<div role="group" aria-label="Goals" style="display: flex; flex-wrap: wrap; gap: 10px;">
+<sc-for list="{{goals}}" as="g" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{g.pressed}}" onClick="{{g.pick}}" style="{{g.style}}">{{g.label}}</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{s4}}" hint-placeholder-val="{{false}}">
+<section class="mq-rise" style="background: #0B1A36; border: 1px solid #2B4A82; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; letter-spacing: -0.02em;">Your starting plan</h1>
+<div style="background: #102449; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #FFB547;">START HERE</span>
+<span style="font-size: 18px; font-weight: 600;">{{startTitle}}</span>
+<span style="font-size: 14px; color: #A3B5D6;">{{startDesc}}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-size: 14px; color: #A3B5D6;">Recommended for your goals</span>
+<sc-for list="{{tools}}" as="t" hint-placeholder-count="3">
+<a href="{{t.href}}" style="display: flex; justify-content: space-between; align-items: center; min-height: 48px; padding: 0 16px; border: 1px solid #1C3563; border-radius: 12px; text-decoration: none; color: #EAF1FF;"><span>{{t.label}}</span><span style="color: #7DB8FF;">Open</span></a>
+</sc-for>
+</div>
+<a href="Dashboard.dc.html" class="mq-btn" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 12px; background: #FFB547; color: #1A1203; font-weight: 600; text-decoration: none; font-size: 16px;">Go to my dashboard</a>
+</section>
+</sc-if>
+
+<sc-if value="{{showNav}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; justify-content: space-between; gap: 12px;">
+<button type="button" onClick="{{back}}" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; cursor: pointer;">Back</button>
+<button type="button" onClick="{{next}}" disabled="{{cantContinue}}" style="{{continueStyle}}">Continue</button>
+</div>
+</sc-if>
+</sc-if>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mode: 'signup', step: 0, level: '', country: 'NG', goals: [] };
+  }
+
+  renderVals() {
+    const { mode, step, level, country, goals } = this.state;
+    const names = ['Account', 'Experience', 'Location', 'Goals', 'Your plan'];
+
+    const optBase = 'display: flex; flex-direction: column; align-items: flex-start; gap: 2px; width: 100%; text-align: left; padding: 16px 18px; border-radius: 14px; font: inherit; color: #EAF1FF; cursor: pointer; ';
+    const levels = [
+      { id: 'new', title: 'New to trading', desc: 'I am just starting and want the basics explained simply.' },
+      { id: 'some', title: 'Some experience', desc: 'I have traded a little but want structure and better results.' },
+      { id: 'pro', title: 'Experienced', desc: 'I trade regularly and want deeper tools and automation.' }
+    ].map((l) => ({
+      ...l,
+      checked: l.id === level ? 'true' : 'false',
+      pick: () => this.setState({ level: l.id }),
+      style: optBase + (l.id === level ? 'background: #102449; border: 2px solid #4A9DFF;' : 'background: #081530; border: 2px solid #1C3563;')
+    }));
+
+    const countryDefs = [
+      { id: 'NG', label: 'Nigeria · WAT (UTC+1)', zone: 'WAT', off: 1 },
+      { id: 'GH', label: 'Ghana · GMT (UTC+0)', zone: 'GMT', off: 0 },
+      { id: 'KE', label: 'Kenya · EAT (UTC+3)', zone: 'EAT', off: 3 },
+      { id: 'ZA', label: 'South Africa · SAST (UTC+2)', zone: 'SAST', off: 2 },
+      { id: 'GB', label: 'United Kingdom · BST (UTC+1 in summer)', zone: 'BST', off: 1 },
+      { id: 'US', label: 'United States · New York ET', zone: 'ET', off: -4 }
+    ];
+    const cd = countryDefs.find((c) => c.id === country) || countryDefs[0];
+    const local = (12.5 + cd.off + 24) % 24;
+    const hh = String(Math.floor(local)).padStart(2, '0');
+    const mm = local % 1 ? '30' : '00';
+    const timePreview = cd.zone === 'GMT' ? '12:30 GMT' : hh + ':' + mm + ' ' + cd.zone + ' · 12:30 GMT';
+
+    const goalDefs = [
+      { id: 'news', label: 'Understand the news', tool: ['Live Desk', 'LiveDesk.dc.html'] },
+      { id: 'tech', label: 'Learn chart analysis', tool: ['Chart Lab', 'ChartLab.dc.html'] },
+      { id: 'bots', label: 'Build trading robots', tool: ['Strategy Lab', 'StrategyLab.dc.html'] },
+      { id: 'track', label: 'Track my trading', tool: ['Journal', 'Journal.dc.html'] },
+      { id: 'prop', label: 'Pass a prop-firm challenge', tool: ['Risk & prop tools', 'Tools.dc.html'] }
+    ];
+    const chipBase = 'min-height: 48px; padding: 0 18px; border-radius: 999px; font: inherit; font-size: 15px; cursor: pointer; ';
+    const goalChips = goalDefs.map((g) => {
+      const on = goals.indexOf(g.id) >= 0;
+      return {
+        label: g.label,
+        pressed: on ? 'true' : 'false',
+        pick: () => this.setState({ goals: on ? goals.filter((x) => x !== g.id) : goals.concat(g.id) }),
+        style: chipBase + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;')
+      };
+    });
+    const picked = goalDefs.filter((g) => goals.indexOf(g.id) >= 0);
+    const tools = (picked.length ? picked : goalDefs.slice(0, 2)).map((g) => ({ label: g.tool[0], href: g.tool[1] }));
+
+    const starts = {
+      new: ['Fundamentals · Module 1: Market basics', 'Short lessons that explain how markets work, in plain words.'],
+      some: ['Fundamentals · Module 3: Inflation, jobs and growth', 'Or take the 10-minute placement quiz to find your exact level.'],
+      pro: ['Take the 10-minute placement quiz', 'Skip what you already know and go straight to advanced modules and automation.']
+    };
+    const start = starts[level] || starts.new;
+    const cantContinue = (step === 1 && !level);
+
+    return {
+      isLogin: mode === 'login',
+      isSignup: mode === 'signup',
+      switchLabel: mode === 'login' ? 'Create an account' : 'Log in',
+      toggleMode: () => this.setState({ mode: mode === 'login' ? 'signup' : 'login', step: 0 }),
+      stepLabel: 'Step ' + (step + 1) + ' of 5',
+      stepName: names[step],
+      progressStyle: 'height: 6px; border-radius: 3px; background: #4A9DFF; transition: width .6s cubic-bezier(.16,1,.3,1); width: ' + ((step + 1) * 20) + '%;',
+      s0: step === 0, s1: step === 1, s2: step === 2, s3: step === 3, s4: step === 4,
+      showNav: step >= 1 && step <= 3,
+      levels,
+      countries: countryDefs,
+      country,
+      setCountry: (e) => this.setState({ country: e.target.value }),
+      timePreview,
+      goals: goalChips,
+      tools,
+      startTitle: start[0],
+      startDesc: start[1],
+      cantContinue,
+      continueStyle: 'min-height: 48px; padding: 0 28px; border-radius: 12px; border: none; font: inherit; font-weight: 600; ' + (cantContinue ? 'background: #16294F; color: #7F93B8; cursor: not-allowed;' : 'background: #FFB547; color: #1A1203; cursor: pointer;'),
+      next: () => { if (!(this.state.step === 1 && !this.state.level)) this.setState({ step: Math.min(4, this.state.step + 1) }); },
+      back: () => this.setState({ step: Math.max(0, this.state.step - 1) })
+    };
+  }
+}
+</script>
+</body>
+</html>

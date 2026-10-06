@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Live Desk</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes mq-pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes mq-ring{0%{box-shadow:0 0 0 0 rgba(255,181,71,.45)}100%{box-shadow:0 0 0 26px rgba(255,181,71,0)}}
+@keyframes mq-sweep{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}.mq-d2{animation-delay:.2s}.mq-d3{animation-delay:.3s}
+.mq-pulse{animation:mq-pulse 1.8s ease-in-out infinite}
+.mq-ring{animation:mq-ring 2.2s cubic-bezier(.16,1,.3,1) infinite}
+.mq-sweep{animation:mq-sweep 3.2s cubic-bezier(.45,0,.55,1) infinite}
+.mq-lift{transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .6s ease}
+.mq-lift:hover{transform:translateY(-4px);border-color:#3A62A8 !important}
+button{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0;">
+
+<div style="background: #0D2350; border-bottom: 1px solid #2B4A82; position: relative; overflow: hidden;">
+<div class="mq-sweep" aria-hidden="true" style="position: absolute; top: 0; bottom: 0; width: 40%; background: rgba(255,255,255,0.04);"></div>
+<div style="position: relative; max-width: 1360px; margin: 0 auto; padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-size: 15px;">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; color: #1A0D06; background: #FF8A5B; padding: 3px 10px; border-radius: 999px;"><span class="mq-pulse" aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #1A0D06;"></span>LIVE NOW</span>
+<span style="font-weight: 600;">FOMC press conference</span>
+<span style="font-family: 'IBM Plex Mono', monospace; color: #B9C9E6;">19:30 WAT · 18:30 GMT</span>
+<span style="color: #B9C9E6;">Federal Reserve · official broadcast</span>
+</div>
+</div>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 32px 24px 96px; display: flex; flex-direction: column; gap: 28px;">
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+<section aria-label="Live broadcast" style="flex: 999 1 700px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+<div class="mq-rise" style="aspect-ratio: 16 / 9; background: #040B19; border: 1px solid #1C3563; border-radius: 18px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+<div style="position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; align-items: center;">
+<span style="display: inline-flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #1A0D06; background: #FF8A5B; padding: 3px 9px; border-radius: 6px;"><span class="mq-pulse" aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #1A0D06;"></span>LIVE</span>
+<span style="font-size: 13px; color: #B9C9E6; background: rgba(6,15,34,0.7); padding: 3px 9px; border-radius: 6px;">Federal Reserve · YouTube</span>
+</div>
+<button type="button" class="mq-ring" aria-label="Play live broadcast" style="width: 84px; height: 84px; border-radius: 50%; border: none; background: #FFB547; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+<span aria-hidden="true" style="width: 0; height: 0; margin-left: 6px; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-left: 23px solid #1A1203;"></span>
+</button>
+<div style="text-align: center; display: flex; flex-direction: column; gap: 4px; padding: 0 24px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;">The official live stream plays here</span>
+<span style="font-size: 14px; color: #A3B5D6;">Embedded from the broadcaster's own YouTube channel whenever they allow embedding.</span>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: baseline;">
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; letter-spacing: -0.02em;">FOMC press conference</h1>
+<span style="font-size: 14px; color: #A3B5D6;">Live summary updates every few minutes</span>
+</div>
+<div class="mq-rise mq-d1" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Key points so far</h2>
+<span style="font-size: 11px; font-weight: 600; color: #A3B5D6; border: 1px solid #2B4A82; padding: 2px 8px; border-radius: 999px;">Example</span>
+</div>
+<div style="display: flex; gap: 12px; font-size: 15px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; flex: none;">19:44</span><span>Questions focus on whether more rate moves are likely this year.</span></div>
+<div style="display: flex; gap: 12px; font-size: 15px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; flex: none;">19:36</span><span>Opening statement repeats that decisions depend on incoming data.</span></div>
+<div style="display: flex; gap: 12px; font-size: 15px;"><span style="font-family: 'IBM Plex Mono', monospace; color: #7DB8FF; flex: none;">19:31</span><span>Press conference begins, 30 minutes after the rate decision.</span></div>
+<p style="margin: 0; font-size: 12px; color: #7F93B8;">Summaries describe what was said. They are not trading advice.</p>
+</div>
+</section>
+
+<aside style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+<section class="mq-rise mq-d2" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #7F93B8;">EVENT CARD · EXAMPLE</span>
+<span style="font-size: 12px; font-weight: 600; color: #1A0D06; background: #FF8A5B; padding: 3px 10px; border-radius: 999px;">High impact</span>
+</div>
+<div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700;">Fed rate decision · Released</div>
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">19:00 WAT · 18:00 GMT</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<div style="background: #102449; border-radius: 10px; padding: 12px;"><div style="font-size: 12px; color: #A3B5D6;">Decision</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 20px;">Hold</div></div>
+<div style="background: #102449; border-radius: 10px; padding: 12px;"><div style="font-size: 12px; color: #A3B5D6;">Expected</div><div style="font-family: 'IBM Plex Mono', monospace; font-size: 20px;">Hold</div></div>
+</div>
+<div style="font-size: 15px; font-weight: 600;">In line with expectations</div>
+<div style="display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px;" aria-label="Surprise level 0 of 10">
+<div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div><div style="height: 8px; border-radius: 2px; background: #1C3563;"></div>
+</div>
+<div style="background: #102449; border-radius: 10px; padding: 12px; font-size: 14px;"><span style="color: #7DB8FF; font-weight: 600;">Simply:</span> no surprise on rates, so markets are now listening to the press conference for hints about what comes next.</div>
+</section>
+
+<section class="mq-rise mq-d3" style="background: #0B1A36; border: 1px solid #2B4A82; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 18px;">Ask about this broadcast</h2>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<sc-for list="{{messages}}" as="m" hint-placeholder-count="1">
+<div class="mq-rise" style="{{m.style}}">{{m.text}}</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px;">
+<label for="desk-q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Ask a question</label>
+<input id="desk-q" type="text" value="{{draft}}" onChange="{{onDraft}}" placeholder="e.g. What does 'data dependent' mean?" style="flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit; font-size: 14px;">
+<button type="button" onClick="{{send}}" aria-label="Send question" style="width: 44px; height: 44px; flex: none; border-radius: 10px; border: none; background: #1F6FE5; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="20" height="20" viewBox="0 0 256 256" fill="#FFFFFF" aria-hidden="true"><path d="M225.88,30.12a13.83,13.83,0,0,0-13.7-3.58l-.11,0L20.14,84.77A14,14,0,0,0,18,110.85l85.56,41.64L145.12,238a13.87,13.87,0,0,0,12.61,8c.4,0,.81,0,1.21-.05a13.9,13.9,0,0,0,12.29-10.09l58.2-191.93,0-.11A13.83,13.83,0,0,0,225.88,30.12Zm-8,10.4L159.73,232.43l0,.11a2,2,0,0,1-3.76.26l-40.68-83.58,49-49a6,6,0,1,0-8.49-8.49l-49,49L23.15,100a2,2,0,0,1,.31-3.74l.11,0L215.48,38.08a1.94,1.94,0,0,1,1.92.52A2,2,0,0,1,217.92,40.52Z"></path></svg></button>
+</div>
+</section>
+</aside>
+</div>
+
+<section aria-label="Up next" style="display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Up next</h2>
+<span style="font-size: 13px; color: #A3B5D6;">Example schedule · times in WAT and GMT</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<sc-for list="{{upcoming}}" as="u" hint-placeholder-count="4">
+<div class="mq-lift" style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6;">{{u.when}}</span>
+<span style="{{u.badgeStyle}}">{{u.impact}}</span>
+</div>
+<span style="font-weight: 600;">{{u.name}}</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #7DB8FF;">{{u.time}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section aria-label="News feed" style="background: #081530; border: 1px solid #1C3563; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px;">
+<div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px;">Live feed</h2>
+<span style="font-size: 13px; color: #A3B5D6;">Example headlines · live sources at launch</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<div role="group" aria-label="Filter feed" style="display: flex; flex-wrap: wrap; gap: 6px;">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+<button type="button" onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+</sc-for>
+</div>
+<button type="button" role="switch" aria-checked="{{soundChecked}}" onClick="{{toggleSound}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #2B4A82; background: transparent; color: #EAF1FF; font: inherit; font-size: 14px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer;">
+<span style="{{soundTrack}}"><span style="{{soundKnob}}"></span></span>Sound alerts
+</button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column;">
+<sc-for list="{{feed}}" as="n" hint-placeholder-count="6">
+<div class="mq-rise" style="display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 14px 4px; border-top: 1px solid #12264A; align-items: baseline;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #A3B5D6; width: 108px; flex: none;">{{n.time}}</span>
+<span style="{{n.tagStyle}}">{{n.cat}}</span>
+<span style="flex: 1 1 320px; min-width: 0;">{{n.text}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: 'All',
+      sound: true,
+      draft: '',
+      messages: [{ role: 'tutor', text: 'Ask anything about what is being said. I will explain it in plain words as the broadcast goes on.' }]
+    };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  renderVals() {
+    return Object.assign({ navGroups: this.navGroups('LiveDesk.dc.html') }, this.pageVals());
+  }
+
+  pageVals() {
+    const items = [
+      { time: '19:45 · 18:45', cat: 'Central banks', text: 'Fed Chair takes questions on the path for interest rates.' },
+      { time: '19:31 · 18:31', cat: 'Central banks', text: 'Press conference begins after the rate decision.' },
+      { time: '19:00 · 18:00', cat: 'Central banks', text: 'Fed holds interest rates steady, in line with expectations.' },
+      { time: '18:40 · 17:40', cat: 'Data', text: 'US Treasury yields steady ahead of the decision.' },
+      { time: '17:15 · 16:15', cat: 'Geopolitics', text: 'Oil edges higher on Middle East shipping concerns.' },
+      { time: '13:15 · 12:15', cat: 'Data', text: 'US private payrolls (ADP) come in close to forecast.' }
+    ];
+    const tagColor = { 'Central banks': '#7DB8FF', 'Data': '#3DDC97', 'Geopolitics': '#FFB547' };
+    const f = this.state.filter;
+    const feed = items
+      .filter((n) => f === 'All' || n.cat === f)
+      .map((n) => ({ ...n, tagStyle: "font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.04em; width: 110px; flex: none; color: " + tagColor[n.cat] + ';' }));
+
+    const chipBase = 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ';
+    const filters = ['All', 'Central banks', 'Data', 'Geopolitics'].map((label) => ({
+      label,
+      pick: () => this.setState({ filter: label }),
+      style: chipBase + (label === f ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;')
+    }));
+
+    const badge = (impact) => 'font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; ' +
+      (impact === 'High' ? 'color: #1A0D06; background: #FF8A5B;' : 'color: #1A1203; background: #FFB547;');
+    const upcoming = [
+      { when: 'Tomorrow', name: 'US weekly jobless claims', time: '13:30 WAT · 12:30 GMT', impact: 'Medium' },
+      { when: 'Friday', name: 'US non-farm payrolls', time: '13:30 WAT · 12:30 GMT', impact: 'High' },
+      { when: 'Friday', name: 'Canada employment change', time: '13:30 WAT · 12:30 GMT', impact: 'High' },
+      { when: 'Monday', name: 'Australia retail sales', time: '01:30 WAT · 00:30 GMT', impact: 'Medium' }
+    ].map((u) => ({ ...u, badgeStyle: badge(u.impact) }));
+
+    const sound = this.state.sound;
+    const msgBase = 'font-size: 14px; padding: 10px 12px; border-radius: 12px; max-width: 92%; ';
+    return {
+      feed, filters, upcoming,
+      soundChecked: sound ? 'true' : 'false',
+      soundTrack: 'width: 36px; height: 20px; border-radius: 999px; position: relative; flex: none; background: ' + (sound ? '#3DDC97' : '#1C3563') + '; transition: background-color .4s ease;',
+      soundKnob: 'position: absolute; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #FFFFFF; transition: left .4s cubic-bezier(.16,1,.3,1); left: ' + (sound ? '18px' : '2px') + ';',
+      toggleSound: () => this.setState({ sound: !this.state.sound }),
+      messages: this.state.messages.map((m) => ({
+        text: m.text,
+        style: msgBase + (m.role === 'user' ? 'align-self: flex-end; background: #1F6FE5; color: #FFFFFF;' : 'align-self: flex-start; background: #102449; color: #EAF1FF;')
+      })),
+      draft: this.state.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      send: () => {
+        const t = this.state.draft.trim();
+        if (!t) return;
+        this.setState({
+          draft: '',
+          messages: [...this.state.messages, { role: 'user', text: t }, { role: 'tutor', text: 'Live explanations are in preview. At launch, answers will draw on the broadcast transcript and explain it simply.' }]
+        });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

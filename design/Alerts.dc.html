@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MARKIQ SI — Alert settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#060F22}
+a{color:#7DB8FF;transition:color .4s ease}a:hover{color:#B5D6FF}
+::selection{background:#FFB547;color:#1A1203}
+.mq-nav:hover{background:#0B1A36}
+@keyframes mq-rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+.mq-rise{animation:mq-rise .8s cubic-bezier(.16,1,.3,1) both}
+.mq-d1{animation-delay:.1s}
+.mq-btn{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,filter .4s ease}
+.mq-btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,181,71,.22);filter:brightness(1.06)}
+button,a{transition:background-color .4s ease,border-color .4s ease,color .4s ease}
+}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #060F22; color: #EAF1FF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.55; display: flex; flex-wrap: wrap;">
+
+<aside style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; background: #050C1C; border-right: 1px solid #16294F; padding: 22px 14px; display: flex; flex-direction: column; gap: 22px;">
+<a href="Main.dc.html" aria-label="MARKIQ SI home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #EAF1FF; padding: 0 10px;">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.06em;">MARKIQ</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; color: #04101F; background: #4A9DFF; padding: 2px 6px; border-radius: 4px;">SI</span>
+</a>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 14px;">
+<sc-for list="{{navGroups}}" as="g" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<sc-if value="{{g.hasLabel}}" hint-placeholder-val="{{true}}">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #7F93B8; padding: 0 10px 4px;">{{g.label}}</span>
+</sc-if>
+<sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+<a href="{{i.href}}" class="mq-nav" style="{{i.style}}">{{i.label}}</a>
+</sc-for>
+</div>
+</sc-for>
+</nav>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 32px clamp(16px, 3vw, 40px) 80px; display: flex; flex-direction: column; gap: 22px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span class="mq-rise" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; color: #7DB8FF;">ALERT SETTINGS</span>
+<h1 class="mq-rise mq-d1" style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(30px, 3.6vw, 42px); letter-spacing: -0.02em;">Only what matters to you.</h1>
+<p style="margin: 0; color: #A3B5D6;">Choose what MARKIQ SI tells you about, where, and when.</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-start;">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Where to send alerts</h2>
+<sc-for list="{{channels}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-top: 1px solid #12264A;">
+<div><div style="font-weight: 600;">{{s.label}}</div><div style="font-size: 14px; color: #A3B5D6;">{{s.desc}}</div></div>
+<button type="button" role="switch" aria-checked="{{s.checked}}" aria-label="{{s.label}}" onClick="{{s.toggle}}" style="width: 52px; height: 44px; flex: none; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;"><span style="{{s.track}}"><span style="{{s.knob}}"></span></span></button>
+</div>
+</sc-for>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">Which events</h2>
+<div role="radiogroup" aria-label="Impact level" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{impacts}}" as="c" hint-placeholder-count="2">
+<button type="button" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 14px; color: #A3B5D6;">Topics</span>
+<div role="group" aria-label="Topics" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{topics}}" as="c" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{c.checked}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 14px; color: #A3B5D6;">Markets you trade</span>
+<div role="group" aria-label="Markets" style="display: flex; flex-wrap: wrap; gap: 8px;">
+<sc-for list="{{markets}}" as="c" hint-placeholder-count="8">
+<button type="button" aria-pressed="{{c.checked}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+</section>
+
+<section style="background: #0B1A36; border: 1px solid #1C3563; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0 0 8px; font-family: 'Space Grotesk', sans-serif; font-size: 20px;">When</h2>
+<sc-for list="{{timing}}" as="s" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-top: 1px solid #12264A;">
+<div><div style="font-weight: 600;">{{s.label}}</div><div style="font-size: 14px; color: #A3B5D6;">{{s.desc}}</div></div>
+<button type="button" role="switch" aria-checked="{{s.checked}}" aria-label="{{s.label}}" onClick="{{s.toggle}}" style="width: 52px; height: 44px; flex: none; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;"><span style="{{s.track}}"><span style="{{s.knob}}"></span></span></button>
+</div>
+</sc-for>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; padding-top: 14px; border-top: 1px solid #12264A;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="q-from" style="font-size: 14px; color: #A3B5D6;">Quiet hours from (WAT)</label>
+<input id="q-from" type="time" value="23:00" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<label for="q-to" style="font-size: 14px; color: #A3B5D6;">to</label>
+<input id="q-to" type="time" value="06:00" style="min-height: 44px; padding: 0 10px; border-radius: 10px; border: 1px solid #2B4A82; background: #060F22; color: #EAF1FF; font: inherit;">
+</div>
+<span style="font-size: 13px; color: #A3B5D6; padding-bottom: 10px;">Rate decisions still come through, silently.</span>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<button type="button" onClick="{{save}}" class="mq-btn" style="min-height: 52px; padding: 0 28px; border-radius: 12px; border: none; background: #FFB547; color: #1A1203; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer;">Save settings</button>
+<sc-if value="{{saved}}" hint-placeholder-val="{{false}}"><span class="mq-rise" style="color: #3DDC97; font-size: 15px;">Saved. Your alerts are updated.</span></sc-if>
+</div>
+</div>
+
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 14px; color: #A3B5D6;">Preview of an alert you'd get</span>
+<div style="background: #0B1A36; border: 1px solid #2B4A82; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 8px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #7F93B8;">MARKIQ SI · {{previewChannel}}</span>
+<span style="font-weight: 600;">{{previewTitle}}</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #A3B5D6;">13:30 WAT · 12:30 GMT</span>
+<span style="font-size: 14px; color: #C9D6EE;">{{previewBody}}</span>
+</div>
+<span style="font-size: 13px; color: #A3B5D6;">{{summary}}</span>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ch: { tg: true, email: false, browser: true },
+      impact: 'High',
+      topics: ['Rate decisions', 'Inflation', 'Jobs'],
+      markets: ['EURUSD', 'XAUUSD', 'USOIL'],
+      timing: { t15: true, release: true, h60: false },
+      saved: false
+    };
+  }
+
+  navGroups(active) {
+    const groups = [
+      { label: '', items: [['Dashboard', 'Dashboard.dc.html']] },
+      { label: 'MARKETS', items: [['News feed', 'News.dc.html'], ['Market dashboard', 'Markets.dc.html'], ['Live Desk', 'LiveDesk.dc.html'], ['Reaction Explorer', 'Explorer.dc.html'], ['Research', 'Research.dc.html']] },
+      { label: 'LEARN', items: [['Academy', 'Academy.dc.html'], ['AI Tutor', 'Lesson.dc.html'], ['Community', 'Community.dc.html']] },
+      { label: 'TRADE TOOLS', items: [['Strategy Lab', 'StrategyLab.dc.html'], ['Chart Lab', 'ChartLab.dc.html'], ['Journal', 'Journal.dc.html'], ['Risk & prop tools', 'Tools.dc.html']] },
+      { label: 'SETTINGS', items: [['Alerts', 'Alerts.dc.html']] }
+    ];
+    const base = 'display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; text-decoration: none; font-size: 15px; ';
+    return groups.map((g) => ({ label: g.label, hasLabel: !!g.label, items: g.items.map((it) => ({ label: it[0], href: it[1], style: base + (it[1] === active ? 'background: #102449; color: #EAF1FF; font-weight: 600;' : 'color: #A3B5D6;') })) }));
+  }
+
+  sw(on, label, desc, toggle) {
+    return {
+      label, desc, toggle,
+      checked: on ? 'true' : 'false',
+      track: 'display: block; width: 44px; height: 24px; border-radius: 999px; position: relative; transition: background-color .4s ease; background: ' + (on ? '#3DDC97' : '#1C3563') + ';',
+      knob: 'position: absolute; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; transition: left .4s cubic-bezier(.16,1,.3,1); left: ' + (on ? '23px' : '3px') + ';'
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const setCh = (k) => () => this.setState({ ch: { ...this.state.ch, [k]: !this.state.ch[k] }, saved: false });
+    const setT = (k) => () => this.setState({ timing: { ...this.state.timing, [k]: !this.state.timing[k] }, saved: false });
+    const chip = (on) => 'min-height: 40px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; ' + (on ? 'background: #EAF1FF; color: #060F22; border: 1px solid #EAF1FF; font-weight: 600;' : 'background: transparent; color: #EAF1FF; border: 1px solid #2B4A82;');
+    const toggleIn = (key, val) => () => {
+      const list = this.state[key];
+      this.setState({ [key]: list.indexOf(val) >= 0 ? list.filter((x) => x !== val) : list.concat(val), saved: false });
+    };
+    const chans = [];
+    if (s.ch.tg) chans.push('Telegram');
+    if (s.ch.email) chans.push('Email');
+    if (s.ch.browser) chans.push('Browser');
+
+    return {
+      navGroups: this.navGroups('Alerts.dc.html'),
+      channels: [
+        this.sw(s.ch.tg, 'Telegram', 'Event cards and alerts in the MARKIQ SI bot', setCh('tg')),
+        this.sw(s.ch.email, 'Email', 'A short email for each alert', setCh('email')),
+        this.sw(s.ch.browser, 'Browser', 'Pop-up notifications while MARKIQ SI is open', setCh('browser'))
+      ],
+      impacts: [['High', 'High impact only'], ['Medium', 'High and medium']].map((p) => ({ label: p[1], checked: s.impact === p[0] ? 'true' : 'false', style: chip(s.impact === p[0]), pick: () => this.setState({ impact: p[0], saved: false }) })),
+      topics: ['Rate decisions', 'Inflation', 'Jobs', 'GDP', 'Central bank speeches', 'Geopolitics'].map((t) => ({ label: t, checked: s.topics.indexOf(t) >= 0 ? 'true' : 'false', style: chip(s.topics.indexOf(t) >= 0), pick: toggleIn('topics', t) })),
+      markets: ['EURUSD', 'GBPUSD', 'USDJPY', 'USDZAR', 'XAUUSD', 'USOIL', 'US500', 'BTCUSD'].map((t) => ({ label: t, checked: s.markets.indexOf(t) >= 0 ? 'true' : 'false', style: chip(s.markets.indexOf(t) >= 0), pick: toggleIn('markets', t) })),
+      timing: [
+        this.sw(s.timing.t15, '15-minute heads-up', 'Forecast and what would count as a surprise', setT('t15')),
+        this.sw(s.timing.release, 'Release result', 'The number, the surprise and what it means', setT('release')),
+        this.sw(s.timing.h60, 'One-hour wrap', 'How markets reacted, once things settle', setT('h60'))
+      ],
+      previewChannel: chans.length ? chans.join(' · ') : 'no channel selected',
+      previewTitle: s.timing.t15 ? 'In 15 min: US CPI (y/y) · High impact' : 'Released: US CPI (y/y) · Hotter than expected',
+      previewBody: s.timing.t15 ? 'Forecast 3.1%. Hotter than that usually lifts the dollar.' : 'Actual above forecast. Large surprise. USD stronger.',
+      summary: chans.length
+        ? 'You will get ' + (s.impact === 'High' ? 'high-impact' : 'high and medium impact') + ' alerts for ' + (s.topics.length ? s.topics.join(', ').toLowerCase() : 'no topics') + ', by ' + chans.join(' and ').toLowerCase() + '.'
+        : 'Turn on at least one channel to receive alerts.',
+      saved: s.saved,
+      save: () => this.setState({ saved: true })
+    };
+  }
+}
+</script>
+</body>
+</html>
