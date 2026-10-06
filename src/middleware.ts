@@ -25,6 +25,15 @@ export async function middleware(req: NextRequest) {
   );
 
   if (isProtected) {
+    // In local development or when magic link email provider is not yet configured,
+    // allow developers and reviewers to explore all app screens without getting stuck in a loop.
+    const isDev = process.env.NODE_ENV === 'development';
+    const authConfigured = Boolean(process.env.RESEND_API_KEY && process.env.DATABASE_URL);
+
+    if (isDev && !authConfigured) {
+      return NextResponse.next();
+    }
+
     // Check if session token exists
     const token = await getToken({
       req,
