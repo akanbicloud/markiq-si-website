@@ -17,7 +17,7 @@ const PROTECTED_PREFIXES = [
   '/strategy-lab',
 ];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isProtected = PROTECTED_PREFIXES.some(
@@ -50,6 +50,8 @@ export async function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
+
+export default proxy;
 
 export const config = {
   matcher: [
