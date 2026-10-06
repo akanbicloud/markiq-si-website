@@ -8,11 +8,12 @@ import { List, X } from '@phosphor-icons/react';
 
 const NAV_LINKS = [
   { label: 'Academy', href: '/academy' },
-  { label: 'Pricing', href: '/pricing' },
   { label: 'Live Desk', href: '/live-desk' },
-  { label: 'Chart Lab', href: '/chart-lab' },
+  { label: 'AI Tutor', href: '/lesson' },
   { label: 'Strategy Lab', href: '/strategy-lab' },
+  { label: 'Chart Lab', href: '/chart-lab' },
   { label: 'Journal', href: '/journal' },
+  { label: 'Pricing', href: '/pricing' },
 ];
 
 export default function PublicNav() {
@@ -73,11 +74,12 @@ export default function PublicNav() {
                 key={link.href}
                 href={link.href}
                 style={{
-                  color: 'var(--amber)',
-                  fontWeight: isActive ? 600 : 500,
-                  transition: 'color 0.2s ease, opacity 0.2s ease',
-                  padding: '8px 4px',
-                  opacity: isActive ? 1 : 0.9,
+                  color: isActive ? 'var(--text)' : 'var(--muted)',
+                  fontWeight: isActive ? 600 : 400,
+                  transition: 'color 0.2s ease',
+                  padding: '8px 6px',
+                  fontSize: '14.5px',
+                  textDecoration: 'none',
                 }}
               >
                 {link.label}
@@ -176,9 +178,10 @@ export default function PublicNav() {
                     padding: '0 12px',
                     borderRadius: 'var(--radius-sm)',
                     background: isActive ? 'var(--surface-2)' : 'transparent',
-                    color: 'var(--amber)',
+                    color: isActive ? 'var(--text)' : 'var(--muted)',
                     fontSize: '15px',
                     fontWeight: isActive ? 600 : 400,
+                    textDecoration: 'none',
                   }}
                 >
                   {link.label}
